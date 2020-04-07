@@ -51,7 +51,10 @@ public class MainSceneScript : MonoBehaviour
 	void Update()
 	{
 		if (Global.playing)
-			Global.frame = (Global.frame + 1) % numberOfFrames;
+			Global.frame++;
+
+		if (Global.frame == numberOfFrames)
+			Global.playing = false;
 	}
 
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
