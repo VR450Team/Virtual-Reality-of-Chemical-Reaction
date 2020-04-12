@@ -11,8 +11,8 @@ public class Global
 	// The variables in this class are available to all scripts using Global.VariableName
 	public static int frame = 0;
 	public static string filePath = "nothing";
+	public static bool playing;
 }
-
 
 
 public class MainSceneScript : MonoBehaviour
@@ -29,8 +29,8 @@ public class MainSceneScript : MonoBehaviour
 		// turns that off and this needs to be done if you want to view the reaction at lower frame rate
 		//QualitySettings.vSyncCount = 0;
 		//Application.targetFrameRate = 90;
-
-        Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
+    
+    Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
@@ -38,11 +38,17 @@ public class MainSceneScript : MonoBehaviour
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
+    
+    Global.playing = true;
 	}
 
 	void Update()
 	{
-		Global.frame = (Global.frame + 1) % numberOfFrames;
+		if (Global.playing)
+			Global.frame++;
+
+		if (Global.frame == numberOfFrames)
+			Global.playing = false;
 	}
 
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
