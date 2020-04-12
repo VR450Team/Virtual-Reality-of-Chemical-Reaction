@@ -20,14 +20,13 @@ public class NavMenuButtonActions : MonoBehaviour
 			pauseOrPlayReaction();
 
 		if (Input.GetKeyDown("e"))
-		{
 			exitApplication();
-		}
+
 	}
 
 	public void goToReactionSelectScreen()
 	{
-		SceneManager.LoadScene("MainMenu");
+		SceneManager.LoadScene("FileSelect");
 	}
 
 	public void restartReaction()
