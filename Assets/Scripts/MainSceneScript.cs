@@ -10,6 +10,7 @@ public class Global
 {
 	// This variable is available to all atoms and covalent bonds by using Global.frame
 	public static int frame;
+	public static bool playing;
 }
 
 public class MainSceneScript : MonoBehaviour
@@ -27,7 +28,9 @@ public class MainSceneScript : MonoBehaviour
 		//QualitySettings.vSyncCount = 0;
 		//Application.targetFrameRate = 90;
 
+		// Initialize global variables
 		Global.frame = 0;
+		Global.playing = true;
 		
 		string[] filePaths = {"Assets/Resources/testInput1.txt",
 			"Assets/Resources/testInput2.txt", "Assets/Resources/testInput3.txt", 
@@ -47,7 +50,11 @@ public class MainSceneScript : MonoBehaviour
 
 	void Update()
 	{
-		Global.frame = (Global.frame + 1) % numberOfFrames;
+		if (Global.playing)
+			Global.frame++;
+
+		if (Global.frame == numberOfFrames)
+			Global.playing = false;
 	}
 
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
