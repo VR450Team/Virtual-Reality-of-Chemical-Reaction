@@ -9,8 +9,8 @@ using UnityEngine;
 public class Global
 {
 	// The variables in this class are available to all scripts using Global.VariableName
-	public static int frame;
-	public static string filePath;
+	public static int frame = 0;
+	public static string filePath = "nothing";
 }
 
 
@@ -29,8 +29,6 @@ public class MainSceneScript : MonoBehaviour
 		// turns that off and this needs to be done if you want to view the reaction at lower frame rate
 		//QualitySettings.vSyncCount = 0;
 		//Application.targetFrameRate = 90;
-
-		Global.frame = 0;
 
         Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
 		numberOfFrames = data.Item1;

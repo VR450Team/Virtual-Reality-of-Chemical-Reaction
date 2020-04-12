@@ -8,15 +8,19 @@ public class FileSelectButtonActions : MonoBehaviour
     string[] filePaths = {"Assets/Resources/officialReaction1.xyz",
         "Assets/Resources/officialReaction2.xyz"};
     
-    public void startReaction1()
+    public void selectReaction1()
 	{
         Global.filePath = filePaths[0];
-        SceneManager.LoadScene("MainScene");
 	}
 
-    public void startReaction2()
+    public void selectReaction2()
 	{
         Global.filePath = filePaths[1];
-        SceneManager.LoadScene("MainScene");
+	}
+
+    public void goToMainScene()
+	{
+        if (Global.filePath != "nothing")
+            SceneManager.LoadScene("MainScene");
 	}
 }
