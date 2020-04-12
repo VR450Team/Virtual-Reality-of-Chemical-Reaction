@@ -26,6 +26,7 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	public void goToReactionSelectScreen()
 	{
+		Global.playing = false;
 		SceneManager.LoadScene("FileSelect");
 	}
 
