@@ -8,9 +8,9 @@ using UnityEngine;
 
 public class Global
 {
-	// This variable is available to all atoms and covalent bonds by using Global.frame
+	// The variables in this class are available to all scripts using Global.VariableName
 	public static int frame;
-    public static int pathNumber = 1;
+	public static string filePath;
 }
 
 
@@ -22,26 +22,6 @@ public class MainSceneScript : MonoBehaviour
 	int numberOfFrames;
 	string debugString; // I plan on using this to use string interpolation in a Debug.Log
 
-    string getFilePath()
-    {
-        string filePath;
-        string[] filePaths = {"Assets/Resources/testInput1.txt",
-            "Assets/Resources/testInput2.txt", "Assets/Resources/testInput3.txt",
-            "Assets/Resources/testInput4.txt", "Assets/Resources/officialReaction1.xyz",
-            "Assets/Resources/officialReaction2.xyz"};
-
-
-
-        if (Global.pathNumber == 1)
-        {
-           filePath = filePaths[4];
-        }
-
-        return filePath;
-
-
-    }
-
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -52,9 +32,7 @@ public class MainSceneScript : MonoBehaviour
 
 		Global.frame = 0;
 
-
-
-        Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(filePath);
+        Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
