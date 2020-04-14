@@ -11,7 +11,8 @@ public class AtomScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = coords2dArray[Global.frame];
+        if (Global.playing)
+            transform.position = coords2dArray[Global.frame];
     }
 
     public void setCoords2dArray(Vector3[] coords2dArray)
