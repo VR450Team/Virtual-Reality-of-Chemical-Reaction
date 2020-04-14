@@ -11,6 +11,8 @@ public class NavMenuButtonActions : MonoBehaviour
 	float distanceFromCenterPoint;
 	Vector3 leftRotation = new Vector3(0, 1, 0);
 	Vector3 rightRotation = new Vector3(0, -1, 0);
+	Vector3 upRotation = new Vector3(1, 0, 0);
+	Vector3 downRotation = new Vector3(-1, 0, 0);
 
 	public void Update()
 	{
@@ -25,7 +27,24 @@ public class NavMenuButtonActions : MonoBehaviour
 
 		if (Input.GetKeyDown("e"))
 			exitApplication();
-		//rotateRight();
+
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+			rotateLeft();
+
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+			rotateRight();
+
+		if (Input.GetKeyDown(KeyCode.UpArrow))
+			rotateUp();
+
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+			rotateDown();
+
+		if (Input.GetKeyDown("i"))
+			zoomIn();
+
+		if (Input.GetKeyDown("o"))
+			zoomOut();
 	}
 
 	public void goToReactionSelectScreen()
@@ -67,5 +86,25 @@ public class NavMenuButtonActions : MonoBehaviour
 	public void rotateRight()
 	{
 		Camera.main.transform.RotateAround(Global.reactionCenterPoint, rightRotation, 20);
+	}
+
+	public void rotateUp()
+	{
+		Camera.main.transform.RotateAround(Global.reactionCenterPoint, upRotation, 20);
+	}
+
+	public void rotateDown()
+	{
+		Camera.main.transform.RotateAround(Global.reactionCenterPoint, downRotation, 20);
+	}
+
+	public void zoomIn()
+	{
+
+	}
+
+	public void zoomOut()
+	{
+
 	}
 }
