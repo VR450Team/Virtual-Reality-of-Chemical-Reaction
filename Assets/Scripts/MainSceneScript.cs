@@ -10,7 +10,7 @@ public class Global
 {
 	// The variables in this class are available to all scripts using Global.VariableName
 	public static int frame = 0;
-	public static string filePath = "Assets/Resources/officialReaction1.xyz";
+	public static string filePath = "nothing";
 	public static bool playing;
 	public static Vector3 reactionCenterPoint;
 }
@@ -32,6 +32,7 @@ public class MainSceneScript : MonoBehaviour
 		//Application.targetFrameRate = 90;
 
 		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
+
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
@@ -40,7 +41,7 @@ public class MainSceneScript : MonoBehaviour
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
-
+    
 		Global.playing = true;
 	}
 
