@@ -8,18 +8,19 @@ using UnityEngine;
 
 public class Global
 {
-	// This variable is available to all atoms and covalent bonds by using Global.frame
-	public static int frame;
+	// The variables in this class are available to all scripts using Global.VariableName
+	public static int frame = 0;
+	public static string filePath = "nothing";
 	public static bool playing;
-	public static Vector3 reactionCenterPoint;
 }
+
 
 public class MainSceneScript : MonoBehaviour
 {
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, covalentBondPrefab;
 
 	int numberOfFrames;
-	string consoleString; // I plan on using this for string interpolation in a Debug.Log
+	string debugString; // I plan on using this to use string interpolation in a Debug.Log
 
 	// Start is called before the first frame update
 	void Start()
@@ -27,27 +28,18 @@ public class MainSceneScript : MonoBehaviour
 		// vSyncCount makes Unity synchronize with your monitor's refresh rate, setting this to 0
 		// turns that off and this needs to be done if you want to view the reaction at lower frame rate
 		//QualitySettings.vSyncCount = 0;
-		//Application.targetFrameRate = 10;
+		//Application.targetFrameRate = 90;
 
-		// Initialize global variables
-		Global.frame = 0;
-		Global.playing = true;
-		
-		string[] filePaths = {"Assets/Resources/testInput1.txt",
-			"Assets/Resources/testInput2.txt", "Assets/Resources/testInput3.txt", 
-			"Assets/Resources/testInput4.txt", "Assets/Resources/officialReaction1.xyz",
-			"Assets/Resources/officialReaction2.xyz"};
-		string filePath = filePaths[4];
-
-		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(filePath);
+		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
-		Global.reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
+
+		Global.playing = true;
 	}
 
 	void Update()
@@ -59,34 +51,6 @@ public class MainSceneScript : MonoBehaviour
 			Global.playing = false;
 	}
 
-	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
-	{
-		int numberOfAtoms = coords3dArray.Length;
-		int numberOfFrames = coords3dArray[0].Length;
-		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
-
-		float averageXCoord = 0;
-		float averageYCoord = 0;
-		float averageZCoord = 0;
-
-		int atomIndex, frameIndex;
-		for (atomIndex = 0; atomIndex < numberOfAtoms; atomIndex++)
-		{
-			for (frameIndex = 0; frameIndex < numberOfFrames; frameIndex++)
-			{
-				averageXCoord += coords3dArray[atomIndex][frameIndex][0];
-				averageYCoord += coords3dArray[atomIndex][frameIndex][1];
-				averageZCoord += coords3dArray[atomIndex][frameIndex][2];
-			}
-		}
-
-		averageXCoord /= numberOfEachCoord;
-		averageYCoord /= numberOfEachCoord;
-		averageZCoord /= numberOfEachCoord;
-
-		return new Vector3(averageXCoord, averageYCoord, averageZCoord);
-	}
-	
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
 	{
 		GameObject atom;
@@ -136,7 +100,7 @@ public class MainSceneScript : MonoBehaviour
 
 		HashSet<string> validAtoms = new HashSet<string>() { "H", "C", "O", "F", "Br" };
 
-		for (currentLineIndex = 2, insertionIndex = 0, lastLineIndex = numberOfAtoms + 1; 
+		for (currentLineIndex = 2, insertionIndex = 0, lastLineIndex = numberOfAtoms + 1;
 			currentLineIndex <= lastLineIndex; currentLineIndex++, insertionIndex++)
 		{
 			firstAtomLetter = fileLines[currentLineIndex][1];
@@ -148,8 +112,8 @@ public class MainSceneScript : MonoBehaviour
 
 			if (!validAtoms.Contains(atomString))
 			{
-				consoleString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
-				Debug.Log(consoleString);
+				debugString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
+				Debug.Log(debugString);
 			}
 
 			atomTypes[insertionIndex] = atomString;
