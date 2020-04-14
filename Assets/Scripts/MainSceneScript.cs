@@ -10,8 +10,9 @@ public class Global
 {
 	// The variables in this class are available to all scripts using Global.VariableName
 	public static int frame = 0;
-	public static string filePath = "nothing";
+	public static string filePath = "Assets/Resources/officialReaction1.xyz";
 	public static bool playing;
+	public static Vector3 reactionCenterPoint;
 }
 
 
@@ -34,6 +35,7 @@ public class MainSceneScript : MonoBehaviour
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
+		Global.reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
@@ -49,6 +51,34 @@ public class MainSceneScript : MonoBehaviour
 
 		if (Global.frame == numberOfFrames)
 			Global.playing = false;
+	}
+
+	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
+	{
+		int numberOfAtoms = coords3dArray.Length;
+		int numberOfFrames = coords3dArray[0].Length;
+		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
+
+		float averageXCoord = 0;
+		float averageYCoord = 0;
+		float averageZCoord = 0;
+
+		int atomIndex, frameIndex;
+		for (atomIndex = 0; atomIndex < numberOfAtoms; atomIndex++)
+		{
+			for (frameIndex = 0; frameIndex < numberOfFrames; frameIndex++)
+			{
+				averageXCoord += coords3dArray[atomIndex][frameIndex][0];
+				averageYCoord += coords3dArray[atomIndex][frameIndex][1];
+				averageZCoord += coords3dArray[atomIndex][frameIndex][2];
+			}
+		}
+
+		averageXCoord /= numberOfEachCoord;
+		averageYCoord /= numberOfEachCoord;
+		averageZCoord /= numberOfEachCoord;
+
+		return new Vector3(averageXCoord, averageYCoord, averageZCoord);
 	}
 
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
