@@ -12,6 +12,7 @@ public class Global
 	public static int frame = 0;
 	public static string filePath = "nothing";
 	public static bool playing;
+	public static Vector3 reactionCenterPoint;
 }
 
 
@@ -29,17 +30,19 @@ public class MainSceneScript : MonoBehaviour
 		// turns that off and this needs to be done if you want to view the reaction at lower frame rate
 		//QualitySettings.vSyncCount = 0;
 		//Application.targetFrameRate = 90;
-    
-    Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
+
+		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
+
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
+		Global.reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
     
-    Global.playing = true;
+		Global.playing = true;
 	}
 
 	void Update()
@@ -49,6 +52,34 @@ public class MainSceneScript : MonoBehaviour
 
 		if (Global.frame == numberOfFrames)
 			Global.playing = false;
+	}
+
+	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
+	{
+		int numberOfAtoms = coords3dArray.Length;
+		int numberOfFrames = coords3dArray[0].Length;
+		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
+
+		float averageXCoord = 0;
+		float averageYCoord = 0;
+		float averageZCoord = 0;
+
+		int atomIndex, frameIndex;
+		for (atomIndex = 0; atomIndex < numberOfAtoms; atomIndex++)
+		{
+			for (frameIndex = 0; frameIndex < numberOfFrames; frameIndex++)
+			{
+				averageXCoord += coords3dArray[atomIndex][frameIndex][0];
+				averageYCoord += coords3dArray[atomIndex][frameIndex][1];
+				averageZCoord += coords3dArray[atomIndex][frameIndex][2];
+			}
+		}
+
+		averageXCoord /= numberOfEachCoord;
+		averageYCoord /= numberOfEachCoord;
+		averageZCoord /= numberOfEachCoord;
+
+		return new Vector3(averageXCoord, averageYCoord, averageZCoord);
 	}
 
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
@@ -100,7 +131,7 @@ public class MainSceneScript : MonoBehaviour
 
 		HashSet<string> validAtoms = new HashSet<string>() { "H", "C", "O", "F", "Br" };
 
-		for (currentLineIndex = 2, insertionIndex = 0, lastLineIndex = numberOfAtoms + 1; 
+		for (currentLineIndex = 2, insertionIndex = 0, lastLineIndex = numberOfAtoms + 1;
 			currentLineIndex <= lastLineIndex; currentLineIndex++, insertionIndex++)
 		{
 			firstAtomLetter = fileLines[currentLineIndex][1];
