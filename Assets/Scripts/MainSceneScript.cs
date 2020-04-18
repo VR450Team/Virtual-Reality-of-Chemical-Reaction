@@ -145,6 +145,7 @@ public class MainSceneScript : MonoBehaviour
 
 			if (!validAtoms.Contains(atomString))
 			{
+				// Error
 				debugString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
 				Debug.Log(debugString);
 			}
