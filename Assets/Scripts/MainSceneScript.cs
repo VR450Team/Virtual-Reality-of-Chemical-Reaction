@@ -100,8 +100,8 @@ public class MainSceneScript : MonoBehaviour
 		{
 			atom = Instantiate(prefabsDict[atomTypes[i]]) as GameObject;
 
-			// Give the atom it's element of coords3dArray
-			atom.GetComponent<AtomScript>().setCoords2dArray(coords3dArray[i]);
+			// Give the atom it's corresponding element of coords3dArray
+			atom.GetComponent<AtomScript>().coords2dArray = coords3dArray[i];
 		}
 	}
 
@@ -111,7 +111,7 @@ public class MainSceneScript : MonoBehaviour
 		foreach (Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> dict in bondsDictList)
 		{
 			covalentBond = Instantiate(covalentBondPrefab) as GameObject;
-			covalentBond.GetComponent<CovalentBondScript>().setBondsDict(dict);
+			covalentBond.GetComponent<CovalentBondScript>().bondsDict = dict;
 		}
 	}
 

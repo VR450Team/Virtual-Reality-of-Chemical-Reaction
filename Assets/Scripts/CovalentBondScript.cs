@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class CovalentBondScript : MonoBehaviour
 {
-    float distance;
-    Vector3 atom1Coords, atom2Coords, scaleVector, positionWhenNotInReaction, scaleWhenNotInReaction;
-    Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondsDict;
+    Vector3 positionWhenNotInReaction = new Vector3(-20, -20, -20);
+    Vector3 scaleWhenNotInReaction = new Vector3(0.1f, 0, 0.1f);
+
+    // 1st Vector3 is for position in a frame, 2nd Vector3 is for localScale in a frame, 
+    // and Quaternion is for rotation in a frame.
+    public Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondsDict;
 
     // Start is called before the first frame update
     void Start()
     {
-        positionWhenNotInReaction = new Vector3(-20, -20, -20);
-        scaleWhenNotInReaction = new Vector3(0.1f, 0, 0.1f);
-        scaleVector = scaleWhenNotInReaction;
-
         transform.position = positionWhenNotInReaction;
-        transform.localScale = scaleVector;
+        transform.localScale = scaleWhenNotInReaction;
     }
 
     // Update is called once per frame
@@ -31,17 +30,14 @@ public class CovalentBondScript : MonoBehaviour
                 transform.localScale = bondsDict[MainSceneScript.frame].Item2;
                 transform.rotation = bondsDict[MainSceneScript.frame].Item3;
             }
-            // Move covalent bond out of reaction if need be
-            else if (bondsDict.ContainsKey(MainSceneScript.frame - 1))
+
+            // Move covalent bond out of reaction if need be. The only time 
+            // transform.localScale.y is 0 is when it is moved outside the reaction.
+            else if (transform.localScale.y != 0)
             {
                 transform.position = positionWhenNotInReaction;
                 transform.localScale = scaleWhenNotInReaction;
             }
         }
-    }
-
-    public void setBondsDict(Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondsDict)
-    {
-        this.bondsDict = bondsDict;
     }
 }
