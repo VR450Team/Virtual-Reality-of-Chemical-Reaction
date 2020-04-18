@@ -23,16 +23,16 @@ public class CovalentBondScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Global.playing)
+        if (MainSceneScript.playing)
         {
-            if (bondsDict.ContainsKey(Global.frame))
+            if (bondsDict.ContainsKey(MainSceneScript.frame))
             {
-                transform.position = bondsDict[Global.frame].Item1;
-                transform.localScale = bondsDict[Global.frame].Item2;
-                transform.rotation = bondsDict[Global.frame].Item3;
+                transform.position = bondsDict[MainSceneScript.frame].Item1;
+                transform.localScale = bondsDict[MainSceneScript.frame].Item2;
+                transform.rotation = bondsDict[MainSceneScript.frame].Item3;
             }
             // Move covalent bond out of reaction if need be
-            else if (transform.position != positionWhenNotInReaction)
+            else if (bondsDict.ContainsKey(MainSceneScript.frame - 1))
             {
                 transform.position = positionWhenNotInReaction;
                 transform.localScale = scaleWhenNotInReaction;

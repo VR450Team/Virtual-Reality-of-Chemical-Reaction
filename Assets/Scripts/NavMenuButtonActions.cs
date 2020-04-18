@@ -49,53 +49,54 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	public void goToReactionSelectScreen()
 	{
-		Global.playing = false;
+		MainSceneScript.playing = false;
 		SceneManager.LoadScene("FileSelect");
 	}
 
 	public void restartReaction()
 	{
-		Global.frame = 0;
+		if (!MainSceneScript.playing)
+			MainSceneScript.playing = true;
+		MainSceneScript.frame = 0;
 	}
 
 	public void pauseOrPlayReaction()
 	{
-		if (Global.playing)
+		if (MainSceneScript.playing)
 		{
 			buttonText.text = "Play";
-			Global.playing = false;
+			MainSceneScript.playing = false;
 		} else
 		{
 			buttonText.text = "Pause";
-			Global.playing = true;
+			MainSceneScript.playing = true;
 		}
 	}
 
 	public void exitApplication()
 	{
-		Debug.Log("Application quit. If you're running this in the editor then nothing will happen, " +
-				"That's what the documentation says.");
+		Debug.Log("Application quit. If you're running this in the editor then nothing will happen.");
 		Application.Quit();
 	}
 
 	public void rotateLeft()
 	{
-		Camera.main.transform.RotateAround(Global.reactionCenterPoint, leftRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, leftRotation, 20);
 	}
 
 	public void rotateRight()
 	{
-		Camera.main.transform.RotateAround(Global.reactionCenterPoint, rightRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, rightRotation, 20);
 	}
 
 	public void rotateUp()
 	{
-		Camera.main.transform.RotateAround(Global.reactionCenterPoint, upRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, upRotation, 20);
 	}
 
 	public void rotateDown()
 	{
-		Camera.main.transform.RotateAround(Global.reactionCenterPoint, downRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, downRotation, 20);
 	}
 
 	public void zoomIn()

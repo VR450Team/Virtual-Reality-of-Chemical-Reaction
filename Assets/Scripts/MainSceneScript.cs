@@ -7,12 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Global
-{
-	// The variables in this class are available to all scripts using Global.VariableName
-	public static int frame = 0;
-	public static string filePath = "nothing";
-	public static bool playing;
-	public static Vector3 reactionCenterPoint;
+{	
 }
 
 
@@ -23,6 +18,12 @@ public class MainSceneScript : MonoBehaviour
 	int numberOfFrames;
 	string debugString; // I plan on using this to use string interpolation in a Debug.Log
 
+	// The following variables can be accessed from any script using MainSceneScript.variableName
+	public static int frame;
+	public static string filePath = "nothing";
+	public static bool playing;
+	public static Vector3 reactionCenterPoint;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -31,27 +32,28 @@ public class MainSceneScript : MonoBehaviour
 		//QualitySettings.vSyncCount = 0;
 		//Application.targetFrameRate = 90;
 
-		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(Global.filePath);
+		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(filePath);
 
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
-		Global.reactionCenterPoint = getReactionCenterPoint(coords3dArray);
+		reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
-    
-		Global.playing = true;
+
+		frame = 0;
+		playing = true;
 	}
 
 	void Update()
 	{
-		if (Global.playing)
-			Global.frame++;
+		if (playing)
+			frame++;
 
-		if (Global.frame == numberOfFrames)
-			Global.playing = false;
+		if (frame == numberOfFrames)
+			playing = false;
 	}
 
 	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
