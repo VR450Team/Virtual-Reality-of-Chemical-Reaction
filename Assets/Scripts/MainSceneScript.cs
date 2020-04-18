@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Global
-{
-	// The variables in this class are available to all scripts using Global.VariableName
-	
+{	
 }
 
 

@@ -55,6 +55,8 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	public void restartReaction()
 	{
+		if (!MainSceneScript.playing)
+			MainSceneScript.playing = true;
 		MainSceneScript.frame = 0;
 	}
 
