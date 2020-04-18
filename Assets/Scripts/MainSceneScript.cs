@@ -6,11 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Global
-{	
-}
-
-
 public class MainSceneScript : MonoBehaviour
 {
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, covalentBondPrefab;
@@ -20,7 +15,7 @@ public class MainSceneScript : MonoBehaviour
 
 	// The following variables can be accessed from any script using MainSceneScript.variableName
 	public static int frame;
-	public static string filePath = "nothing";
+	public static string filePath;
 	public static bool playing;
 	public static Vector3 reactionCenterPoint;
 
@@ -100,8 +95,8 @@ public class MainSceneScript : MonoBehaviour
 		{
 			atom = Instantiate(prefabsDict[atomTypes[i]]) as GameObject;
 
-			// Give the atom it's element of coords3dArray
-			atom.GetComponent<AtomScript>().setCoords2dArray(coords3dArray[i]);
+			// Give the atom it's corresponding element of coords3dArray
+			atom.GetComponent<AtomScript>().coords2dArray = coords3dArray[i];
 		}
 	}
 
@@ -111,7 +106,7 @@ public class MainSceneScript : MonoBehaviour
 		foreach (Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> dict in bondsDictList)
 		{
 			covalentBond = Instantiate(covalentBondPrefab) as GameObject;
-			covalentBond.GetComponent<CovalentBondScript>().setBondsDict(dict);
+			covalentBond.GetComponent<CovalentBondScript>().bondsDict = dict;
 		}
 	}
 
@@ -145,6 +140,7 @@ public class MainSceneScript : MonoBehaviour
 
 			if (!validAtoms.Contains(atomString))
 			{
+				// Error
 				debugString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
 				Debug.Log(debugString);
 			}
