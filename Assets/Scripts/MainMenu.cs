@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour{
 
-    public bool isStart;
-    public bool isQuit;
     public void PlayGame(){
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene(2);
     }
 
@@ -27,8 +24,7 @@ public class MainMenu : MonoBehaviour{
 
     }*/
     public void FileSelect(){
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("FileSelect");
     }
 }
 
