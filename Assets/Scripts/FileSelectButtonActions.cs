@@ -10,17 +10,17 @@ public class FileSelectButtonActions : MonoBehaviour
     
     public void selectReaction1()
 	{
-        Global.filePath = filePaths[0];
+        MainSceneScript.filePath = filePaths[0];
 	}
 
     public void selectReaction2()
 	{
-        Global.filePath = filePaths[1];
+        MainSceneScript.filePath = filePaths[1];
 	}
 
     public void goToMainScene()
 	{
-        if (Global.filePath != "nothing")
+        if (MainSceneScript.filePath != "nothing")
             SceneManager.LoadScene("MainScene");
 	}
 }
