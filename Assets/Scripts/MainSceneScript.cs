@@ -6,11 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Global
-{	
-}
-
-
 public class MainSceneScript : MonoBehaviour
 {
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, covalentBondPrefab;
@@ -20,7 +15,7 @@ public class MainSceneScript : MonoBehaviour
 
 	// The following variables can be accessed from any script using MainSceneScript.variableName
 	public static int frame;
-	public static string filePath = "nothing";
+	public static string filePath;
 	public static bool playing;
 	public static Vector3 reactionCenterPoint;
 
