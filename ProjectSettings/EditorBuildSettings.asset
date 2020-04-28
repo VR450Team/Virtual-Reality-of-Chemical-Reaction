@@ -12,17 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: ce82f3899a3ba2648b4630c50ba6792a
   - enabled: 0
-    path: Assets/Scenes/GameScene.unity
+    path: 
     guid: 02ee415e45e0ba44f9b186d0bacf166d
   - enabled: 1
     path: Assets/Scenes/FileSelect.unity
     guid: bd0caff08e05cfa469f4aab8da650a71
   - enabled: 1
-
     path: Assets/Scenes/Download.unity
     guid: 8882677e1f733234b9e1946f42a389f9
-
+  - enabled: 1
     path: Assets/Scenes/Help.unity
     guid: 3d4cf90f124be8b40b0c9fac970c8507
-
   m_configObjects: {}
