@@ -26,5 +26,8 @@ public class MainMenu : MonoBehaviour{
     public void FileSelect(){
         SceneManager.LoadScene("FileSelect");
     }
+    public void HelpMenu() {
+        SceneManager.LoadScene("Help");
+    }
 }
 
