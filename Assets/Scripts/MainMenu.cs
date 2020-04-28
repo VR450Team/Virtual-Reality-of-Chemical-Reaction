@@ -30,10 +30,10 @@ public class MainMenu : MonoBehaviour{
     public void Download()
     {
         SceneManager.LoadScene("Download");
+    }
 
     public void HelpMenu() {
         SceneManager.LoadScene("Help");
-
     }
 }
 
