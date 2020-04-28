@@ -26,8 +26,14 @@ public class MainMenu : MonoBehaviour{
     public void FileSelect(){
         SceneManager.LoadScene("FileSelect");
     }
+
+    public void Download()
+    {
+        SceneManager.LoadScene("Download");
+
     public void HelpMenu() {
         SceneManager.LoadScene("Help");
+
     }
 }
 
