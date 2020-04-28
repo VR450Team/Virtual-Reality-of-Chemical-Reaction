@@ -101,11 +101,13 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	public void zoomIn()
 	{
-
-	}
+        Camera.main.fieldOfView--;
+        Camera.main.fieldOfView--;
+    }
 
 	public void zoomOut()
 	{
-
-	}
+        Camera.main.fieldOfView++;
+        Camera.main.fieldOfView++;
+    }
 }
