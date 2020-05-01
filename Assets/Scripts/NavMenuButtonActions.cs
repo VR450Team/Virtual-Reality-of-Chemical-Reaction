@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class NavMenuButtonActions : MonoBehaviour
 {
 	public Text buttonText;
+	public Button pauseAndPlayButton;
+	public Image playImage, pauseRect1, pauseRect2;
 	float distanceFromCenterPoint;
 	Vector3 leftRotation = new Vector3(0, 1, 0);
 	Vector3 rightRotation = new Vector3(0, -1, 0);
@@ -56,7 +58,12 @@ public class NavMenuButtonActions : MonoBehaviour
 	public void restartReaction()
 	{
 		if (!MainSceneScript.playing)
+		{
 			MainSceneScript.playing = true;
+			playImage.enabled = false;
+			pauseRect1.enabled = true;
+			pauseRect2.enabled = true;
+		}
 		MainSceneScript.frame = 0;
 	}
 
@@ -64,12 +71,27 @@ public class NavMenuButtonActions : MonoBehaviour
 	{
 		if (MainSceneScript.playing)
 		{
-			buttonText.text = "Play";
+			//buttonText.text = "Play";
 			MainSceneScript.playing = false;
+			pauseRect1.enabled = false;
+			pauseRect2.enabled = false;
+			playImage.enabled = true;
+			//pauseRect1.image.setActive(false);
+			//pauseRect2.image.setActive(false);
+			//Image img = pauseAndPlayButton.GetComponentInChildren<PlayImage>();
+			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle1>().setActive(false);
+			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle2>().setActive(false);
+			//pauseAndPlayButton.GetComponentInChildren<PlayImage>().setActive(true);
 		} else
 		{
-			buttonText.text = "Pause";
+			//buttonText.text = "Pause";
 			MainSceneScript.playing = true;
+			playImage.enabled = false;
+			pauseRect1.enabled = true;
+			pauseRect2.enabled = true;
+			//pauseAndPlayButton.GetComponentInChildren<PlayImage>().setActive(false);
+			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle1>().setActive(true);
+			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle2>().setActive(true);
 		}
 	}
 
@@ -101,13 +123,11 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	public void zoomIn()
 	{
-        Camera.main.fieldOfView--;
-        Camera.main.fieldOfView--;
+        Camera.main.fieldOfView -= 4;
     }
 
 	public void zoomOut()
 	{
-        Camera.main.fieldOfView++;
-        Camera.main.fieldOfView++;
+        Camera.main.fieldOfView += 4;
     }
 }
