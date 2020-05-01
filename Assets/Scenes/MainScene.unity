@@ -146,7 +146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.61, y: 0.0000064373}
+  m_AnchoredPosition: {x: 1.6099997, y: 0.00000667572}
   m_SizeDelta: {x: -3.32, y: -8.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97424090
@@ -420,7 +420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.089}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.01, y: 1.4878}
+  m_AnchoredPosition: {x: -0.010000229, y: 1.4877996}
   m_SizeDelta: {x: 0, y: -9.3467}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170785067
@@ -2142,7 +2142,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1397856881}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1335487415}
+        m_MethodName: rotateDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1397856881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2529,7 +2540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -87.686005}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.17, y: -0.27}
+  m_AnchoredPosition: {x: 1.1700001, y: -0.27000046}
   m_SizeDelta: {x: -0.66, y: -6.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1649111164
