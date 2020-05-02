@@ -13,7 +13,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	void Start()
 	{
 		//StartCoroutine(downloadFile());
-		File.WriteAllText("Assets/Files/" + "reaction1copy1.xyz", File.ReadAllText("Assets/Files/officialReaction1.xyz"));
+		//File.WriteAllText("Assets/Files/" + "reaction1copy1.xyz", File.ReadAllText("Assets/Files/officialReaction1.xyz"));
 	}
 
 	public void goToMainMenu()
