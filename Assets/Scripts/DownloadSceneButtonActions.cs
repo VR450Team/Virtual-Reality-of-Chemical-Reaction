@@ -13,7 +13,6 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	void Start()
 	{
 		//StartCoroutine(downloadFile());
-		//File.WriteAllText("Assets/Files/" + "reaction1copy1.xyz", File.ReadAllText("Assets/Files/officialReaction1.xyz"));
 	}
 
 	public void goToMainMenu()
@@ -31,7 +30,39 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		string fileName = "mosgcone.txt";  // This should be changed depending on what user enters in input field
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
-		WWW dataFromServer = new WWW(url);
+
+		using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+		{
+			yield return webRequest.SendWebRequest();
+
+			if (webRequest.isNetworkError)
+			{
+				Debug.Log("Error: " + webRequest.error);
+			}
+			else
+			{
+				string data = webRequest.downloadHandler.text;
+				Debug.Log("Received " + data);
+				/*
+				try
+				{
+					if (fileIsGood(data))
+					{
+						File.WriteAllText("Assets/Files/" + fileName, data);
+					}
+					else
+					{
+						Debug.Log("File not valid");
+					}
+				} 
+				catch
+				{
+					Debug.Log("File not valid");
+				}*/
+			}
+		}
+
+		/*WWW dataFromServer = new WWW(url);
 		yield return dataFromServer;
 		try
 		{
@@ -48,7 +79,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		{
 			Debug.Log("File not valid");
 			// Implement more error handling features
-		}
+		}*/
 
 		//var uwr = new UnityWebRequest("http://people.missouristate.edu/riqbal/data/mosgcone.txt", UnityWebRequest.kHttpVerbGET);
 
