@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class PullFilesFromServer : MonoBehaviour
 {
-    private UnityWebRequest uwr;
+    private readonly UnityWebRequest uwr;
 
     public string downloadUrl;
     void Start()
@@ -15,18 +15,17 @@ public class PullFilesFromServer : MonoBehaviour
     }
     IEnumerator DownloadFile()
     {
-        var uwr = new UnityWebRequest("http://www.razib.info/chemvr", UnityWebRequest.kHttpVerbGET);
+        var uwr = new UnityWebRequest("http://people.missouristate.edu/riqbal/data/mosgcone.txt", UnityWebRequest.kHttpVerbGET);
 
         //Update with the proper file type or file name
-        string path = Path.Combine(Application.persistentDataPath, "filetype");
+        //Stores to the location C:\Users\(YourUserName)\AppData\LocalLow\DefaultCompany\Virtual Reality of Chemical Reactions
+        string path = Path.Combine(Application.persistentDataPath, "ReactionFile");
         uwr.downloadHandler = new DownloadHandlerFile(path);
-        //StartCoroutine(ShowDownloadProgress(uwr));
         yield return uwr.SendWebRequest();
         if (uwr.isNetworkError || uwr.isHttpError)
             Debug.LogError(uwr.error);
         else
         {
-            //m_downloadProgress.text = (string.Format("{0:P1}", uwr.downloadProgress));
             Debug.Log("File successfully downloaded and saved to " + path);
         }
     }
