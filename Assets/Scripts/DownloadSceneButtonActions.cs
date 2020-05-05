@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Globalization;
 using UnityEngine.SceneManagement;
 
 public class DownloadSceneButtonActions : MonoBehaviour
 {
+
+    public GameObject inputField;
 	//private readonly UnityWebRequest uwr;
 
 	void Start()
 	{
-		//StartCoroutine(downloadFile());
-	}
+       
+    }
+
 
 	public void goToMainMenu()
 	{
@@ -27,7 +31,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 
 	IEnumerator downloadFile()
 	{
-		string fileName = "mosgcone.txt";  // This should be changed depending on what user enters in input field
+        string fileName = inputField.GetComponent<Text>().text;  // This should be changed depending on what user enters in input field
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
 
