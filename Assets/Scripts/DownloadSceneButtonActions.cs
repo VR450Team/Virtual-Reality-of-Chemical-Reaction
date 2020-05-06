@@ -31,7 +31,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 
 	IEnumerator downloadFile()
 	{
-        string fileName = inputField.GetComponent<Text>().text;  // This should be changed depending on what user enters in input field
+        string fileName = inputField.GetComponent<Text>().text; 
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
 
@@ -46,23 +46,26 @@ public class DownloadSceneButtonActions : MonoBehaviour
 			else
 			{
 				string data = webRequest.downloadHandler.text;
+				Debug.Log("Received data and checking it");
 				Debug.Log("Received " + data);
-				/*
 				try
 				{
 					if (fileIsGood(data))
 					{
 						File.WriteAllText("Assets/Files/" + fileName, data);
+						Debug.Log("Just added file to files folder");
 					}
 					else
 					{
 						Debug.Log("File not valid");
+						// Error handling features
 					}
 				} 
 				catch
 				{
 					Debug.Log("File not valid");
-				}*/
+					// Error handling features
+				}
 			}
 		}
 

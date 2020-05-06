@@ -18,7 +18,7 @@ public class FileSelectButtonActions : MonoBehaviour
         foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
         {
             // Some files will be .meta files so ignore those.
-            if (filePath.Substring(filePath.Length - 4) == ".xyz")
+            if (filePath.Substring(filePath.Length - 4) == ".txt")
                 filePaths.Add(filePath);
         }
 
