@@ -8,7 +8,7 @@ using UnityEngine;
 // This script is attached to an empty object in MainScene. It runs when that scene gets accessed.
 public class MainSceneScript : MonoBehaviour
 {
-	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, covalentBondPrefab;
+	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, bondPrefab;
 	int numberOfFrames;
 
 	// The following variables can be accessed from any script using MainSceneScript.variableName
@@ -102,15 +102,15 @@ public class MainSceneScript : MonoBehaviour
 
 	void instantiateBonds(List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList)
 	{
-		GameObject covalentBond;
+		GameObject bond;
 		foreach (Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> dict in bondsDictList)
 		{
-			covalentBond = Instantiate(covalentBondPrefab) as GameObject;
+			bond = Instantiate(bondPrefab) as GameObject;
 
 			// There's a script attached to every bond object that dictates it's behavior. 
 			// There's a variable in each bond script of a dictionary. Access that variable and 
 			// set it to the proper dictionary in bondsDictList.
-			covalentBond.GetComponent<CovalentBondScript>().bondsDict = dict;
+			bond.GetComponent<BondScript>().bondsDict = dict;
 		}
 	}
 

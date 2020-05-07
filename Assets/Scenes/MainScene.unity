@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1372,7 +1372,7 @@ MonoBehaviour:
     type: 3}
   brominePrefab: {fileID: 5094657827278948483, guid: 28832d739d3372148b82bdae09643238,
     type: 3}
-  covalentBondPrefab: {fileID: 7246064760826646488, guid: 76069f65b183a564eb2a4f22e355c1b7,
+  bondPrefab: {fileID: 7246064760826646488, guid: 76069f65b183a564eb2a4f22e355c1b7,
     type: 3}
 --- !u!4 &836533512
 Transform:
