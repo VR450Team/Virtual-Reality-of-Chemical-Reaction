@@ -15,6 +15,8 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
 	public Text inputFieldText;
 
+	// The following code, along with the commented out code in the downloadFile function provides a way for the program to 
+	// check if the user tries to request a file from the server that they already have a copy of. 
 	/*HashSet<string> filesInFilesFolder;
 	public void Start()
 	{
@@ -53,6 +55,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	// The algorithm in downloadFile is mentioned in sections 3.2.3.5.1.4a and 3.2.3.5.1.4c of the SDD
 	IEnumerator downloadFile(string fileName)
 	{
+		// Dr. Iqbal's file path for his web server
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
 
@@ -78,7 +81,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 					}
 					else
 					{
-						Debug.Log("File not valid");
+						Debug.Log("File not valid because of atom types");
 						// Error handling features
 					}
 				} 
