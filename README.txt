@@ -51,14 +51,15 @@ Pause/Play:
 	Button: /
 	Key: spacebar
 Restart the current reaction:
-  Button: ’Restart’
+  	Button: ’Restart’
 	Key: ‘r’
 Return to File Selection:
-  Button: ’New Reaction’
+  	Button: ’New Reaction’
 	Key: ‘f’
 Return to Main Menu:
-  Button: ’Main Menu’
+  	Button: ’Main Menu’
 	Key: ‘e’
+	
 The user can return to the main menu and exit the application at any time. 
 
 ***File Structure***
@@ -75,10 +76,10 @@ Within the ‘Assets’ folder, the relevant files are:
 	‘Prefabs’ – This file contains the prefabs used to instantiate the atoms and covalent bonds in a simulation. Prefabs are best viewed in unity editor. The hexadecimal values match the values provided by Dr. Seibert in the ‘atom colors.png’ mentioned above. The prefabs use information from the ‘Materials’ folder such as color but that folder is not important. 
 	‘Scenes’ – This folder includes all of the scenes that are present in our project such as:
 		‘Download.unity’ – the scene to allow the users to pull files from a web server.
-‘FileSelect.unity’ – the scene to allow the users to select a file.
-‘Help.unity’ – the scene to display the keys binded to navigation menu functions.
-‘MainMenu.unity’ – the main menu scene.
-‘MainScene.unity’ – the scene where the simulations are displayed.
+		‘FileSelect.unity’ – the scene to allow the users to select a file.
+		‘Help.unity’ – the scene to display the keys binded to navigation menu functions.
+		‘MainMenu.unity’ – the main menu scene.
+		‘MainScene.unity’ – the scene where the simulations are displayed.
 	‘Scripts’ – All of our C# scripts are stored here.
 		‘AtomScript.cs’
 		‘BondScript.cs’
