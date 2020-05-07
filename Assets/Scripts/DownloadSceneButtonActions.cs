@@ -67,6 +67,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 			if (webRequest.isNetworkError)
 			{
 				Debug.Log("Error: " + webRequest.error);
+				displayText.text = fileName + " failed to pull";
 			}
 			else
 			{
