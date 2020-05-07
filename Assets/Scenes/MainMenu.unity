@@ -596,7 +596,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1197863135}
-        m_MethodName: HelpMenu
+        m_MethodName: goToHelpMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -721,7 +721,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1197863135}
-        m_MethodName: FileSelect
+        m_MethodName: goToFileSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1531,7 +1531,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1197863135}
-        m_MethodName: QuitGame
+        m_MethodName: quitProgram
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1811,7 +1811,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1197863135}
-        m_MethodName: Download
+        m_MethodName: goToDownloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

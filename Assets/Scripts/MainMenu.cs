@@ -3,36 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour{
-
-    public void PlayGame(){
-        SceneManager.LoadScene(2);
-    }
-
-    public void QuitGame(){
-		Debug.Log("Has quit game");
+// This script is attached to the MainMenu object on the canvas in the MainMenu scene. These functions are in 
+// button click listeners and get called when one of the buttons is clicked.
+public class MainMenu : MonoBehaviour
+{
+    public void quitProgram()
+    {
         Application.Quit();
     }
     
-    /*void OnMouseUp() {
-        if(isStart){
-            SceneManager.LoadScene(2);
-        }
-        if(isQuit){
-            SceneManager.LoadScene(0);
-        }
-
-    }*/
-    public void FileSelect(){
+    public void goToFileSelect()
+    {
         SceneManager.LoadScene("FileSelect");
     }
 
-    public void Download()
+    public void goToDownloadScene()
     {
         SceneManager.LoadScene("Download");
     }
 
-    public void HelpMenu() {
+    public void goToHelpMenu() 
+    {
         SceneManager.LoadScene("Help");
     }
 }

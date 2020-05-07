@@ -1,17 +1,15 @@
-﻿// This script is attached to an empty object in MainScene. It runs when you hit the play button in that scene.
-using System;
+﻿using System;
 using System.IO;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script is attached to an empty object in MainScene. It runs when that scene gets accessed.
 public class MainSceneScript : MonoBehaviour
 {
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, covalentBondPrefab;
-
 	int numberOfFrames;
-	string debugString; // I plan on using this to use string interpolation in a Debug.Log
 
 	// The following variables can be accessed from any script using MainSceneScript.variableName
 	public static int frame;
@@ -22,23 +20,20 @@ public class MainSceneScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		// vSyncCount makes Unity synchronize with your monitor's refresh rate, setting this to 0
-		// turns that off and this needs to be done if you want to view the reaction at lower frame rate
-		//QualitySettings.vSyncCount = 0;
-		//Application.targetFrameRate = 90;
-
 		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(filePath);
-
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
+
 		reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
 		instantiateBonds(bondsDictList);
 
+		// frame represents the current frame of the reaction
 		frame = 0;
+		// playing represents whether the reaction should be playing or paused
 		playing = true;
 	}
 
@@ -47,12 +42,14 @@ public class MainSceneScript : MonoBehaviour
 		if (playing)
 			frame++;
 
+		// Stop the reaction when the end has been reached
 		if (frame == numberOfFrames)
 			playing = false;
 	}
 
 	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
 	{
+		// Returns the average point of all coordinates in a reaction
 		int numberOfAtoms = coords3dArray.Length;
 		int numberOfFrames = coords3dArray[0].Length;
 		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
@@ -95,7 +92,10 @@ public class MainSceneScript : MonoBehaviour
 		{
 			atom = Instantiate(prefabsDict[atomTypes[i]]) as GameObject;
 
-			// Give the atom it's corresponding element of coords3dArray
+			// There's a script attached to every atom object that dictates it's behavior.
+			// There's a variable in each atom script of a two-dimensional array of coordinates.
+			// Access that variable and set it to the proper two-dimensional subarray of coordinates 
+			// of the three-dimensional array of coordinates.
 			atom.GetComponent<AtomScript>().coords2dArray = coords3dArray[i];
 		}
 	}
@@ -106,12 +106,17 @@ public class MainSceneScript : MonoBehaviour
 		foreach (Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> dict in bondsDictList)
 		{
 			covalentBond = Instantiate(covalentBondPrefab) as GameObject;
+
+			// There's a script attached to every bond object that dictates it's behavior. 
+			// There's a variable in each bond script of a dictionary. Access that variable and 
+			// set it to the proper dictionary in bondsDictList.
 			covalentBond.GetComponent<CovalentBondScript>().bondsDict = dict;
 		}
 	}
 
 	Tuple<int, string[], Vector3[][]> getDataFromXYZFile(string filePath)
 	{
+		// Get an array containing all lines of a reaction data file
 		string[] fileLines = File.ReadAllLines(filePath);
 
 		// The first line of every frame contains the number of atoms
@@ -120,7 +125,7 @@ public class MainSceneScript : MonoBehaviour
 		// A frame takes up a line for each atom along with two comment lines
 		int numberOfFrames = fileLines.Length / (numberOfAtoms + 2);
 
-		// 1st, get atom types
+		// First, get atom types
 		string[] atomTypes = new string[numberOfAtoms];
 		char firstAtomLetter, secondAtomLetter;
 		string atomString = "";
@@ -128,6 +133,9 @@ public class MainSceneScript : MonoBehaviour
 
 		HashSet<string> validAtoms = new HashSet<string>() { "H", "C", "O", "F", "Br" };
 
+		// Start currentLineIndex at 2 to skip the first two comment lines. lastLineIndex refers to the
+		// last line of the first frame, which contains the last atom type. insertionIndex refers to 
+		// which index of the atomTypes array to insert an atom type.
 		for (currentLineIndex = 2, insertionIndex = 0, lastLineIndex = numberOfAtoms + 1;
 			currentLineIndex <= lastLineIndex; currentLineIndex++, insertionIndex++)
 		{
@@ -140,9 +148,9 @@ public class MainSceneScript : MonoBehaviour
 
 			if (!validAtoms.Contains(atomString))
 			{
-				// Error
-				debugString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
-				Debug.Log(debugString);
+				// Error handling features
+				Debug.Log("Error: " + atomString + " on line " + (currentLineIndex + 1).ToString() + " of the input file is not" +
+					" a valid atom type");
 			}
 
 			atomTypes[insertionIndex] = atomString;
@@ -151,7 +159,6 @@ public class MainSceneScript : MonoBehaviour
 
 
 		// Next, get the 3d array
-
 		string currentCoord = "";
 		int atomIndex, frameIndex, coordIndex, lineLength, lineCharIndex;
 		char currentChar;
@@ -207,13 +214,23 @@ public class MainSceneScript : MonoBehaviour
 		int numberOfFrames = coords3dArray[0].Length;
 		int atom1Index, atom2Index, frameIndex;
 		string atom1Type, atom2Type;
+		float bondingDistance, distance;
 		Vector3 atom1Coords, atom2Coords, position;
+
+		// The 1st and 3rd values of these, or the x and z values, determine thickness and will always be 0.1 
+		// to be the right thickness. They 2nd or y value determines length and will change to change length.
 		Vector3 scale = new Vector3(0.1f, 0, 0.1f);
 		Quaternion rotation;
-		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = new List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>>();
-		Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondFrameData = new Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>();
-		float bondingDistance, distance;
 
+		// bondReactionData is used to gather the bonds between 2 atoms for an entire reaction. The int key is for the frame
+		// in which the 2 atoms are bonded. The values are for the data for the bond object including position, scale, and rotation.
+		Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondReactionData = new Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>();
+
+		// bondsDictList is a list that will contain dictionaries of bond data. This list gets returned at the end.
+		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = new List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>>();
+
+		// To find the bonding distance of 2 atoms, add their values of the dictionary below.
+		// VDW stands for van der waals. These values are based on VDW radii.
 		Dictionary<string, float> VDWValues = new Dictionary<string, float>()
 		{
 			{"H", 0.6f },
@@ -223,6 +240,10 @@ public class MainSceneScript : MonoBehaviour
 			{"Br", 0.925f }
 		};
 
+		// Compare every atom with every other atom. Look at their distances away from each other in every frame. If they are 
+		// bonded in any frames, create a dictionary and have the keys be the frames they are bonded in and have the values be 
+		// the data that the bond objects will need to appear that it is connecting the 2 atoms. This data includes the position,
+		// scale, and rotation. 
 		for (atom1Index = 0; atom1Index < numberOfAtoms - 1; atom1Index++)
 		{
 			atom1Type = atomTypes[atom1Index];
@@ -240,119 +261,28 @@ public class MainSceneScript : MonoBehaviour
 
 					if (distance < bondingDistance)
 					{
+						// Set position to the position halfway between the 2 atoms
 						position = (atom1Coords - atom2Coords) / 2.0f + atom2Coords;
+						// scale is a Vector3 and the y attribute is the second value of it. This affects the length of the bond object.
 						scale.y = distance * 0.6f;
+						// Set the rotation so that one end of the bond is at one atom and the other end is at the other atom
 						rotation = Quaternion.FromToRotation(Vector3.up, atom1Coords - atom2Coords);
 
-						bondFrameData.Add(frameIndex, new Tuple<Vector3, Vector3, Quaternion>(position, scale, rotation));
+						bondReactionData.Add(frameIndex, new Tuple<Vector3, Vector3, Quaternion>(position, scale, rotation));
 					}
 				}
 
-				if (bondFrameData.Count > 0)
+				// This is true when bonds were found between 2 atoms.
+				if (bondReactionData.Count > 0)
 				{
-					bondsDictList.Add(bondFrameData);
-					bondFrameData = new Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>();
+					bondsDictList.Add(bondReactionData);
+
+					// Create a new dictionary since for a list of dictionaries, the dictionaries are stored by reference and not value.
+					// Clearing the dictionary would result in bondsDictList containg empty dictionaries at the end.
+					bondReactionData = new Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>();
 				}
 			}
 		}
 		return bondsDictList;
-	}
-
-	bool isBonded(Vector3 coord_arr_1, char atom_type_1, Vector3 coord_arr_2, char atom_type_2)
-	{
-		//Function checks if 2 given atoms are bonded and returns true if so
-		//An atom is bonded if the distance between two atoms is less than the combined values of
-		//there Van der Waal's radii, as approved by our share holder (values given below)
-		float h_van_r = 1.2f;   //120 picometers. I think this is 1.2 unity units
-		float c_van_r = 1.7f;   //170 picometers
-		float o_van_r = 1.52f;  //152 picometers
-		float dist = 0.0f;
-		bool is_bonded = false;
-		float van_dist = 0;
-
-		//float dist = Vector3.Distance(coord_arr_1.position, coord_arr_1.position);		
-
-		//float comp_dist;
-		//dist = square_root((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)
-		/*dist = ((coord_arr_2[0] - coord_arr_1[0]) * (coord_arr_2[0] - coord_arr_1[0]))
-						+ ((coord_arr_2[1] - coord_arr_1[1]) * (coord_arr_2[1] - coord_arr_1[1]))
-						+ ((coord_arr_2[2] - coord_arr_1[2]) * (coord_arr_2[2] - coord_arr_1[2]));
-		dist = Mathf.Sqrt(dist);*/
-		dist = Vector3.Distance(coord_arr_1, coord_arr_2);
-
-		if (atom_type_1 == 'H')
-			van_dist += h_van_r;
-		else if (atom_type_1 == 'C')
-			van_dist += c_van_r;
-		else if (atom_type_1 == 'O')
-			van_dist += o_van_r;
-
-		if (atom_type_2 == 'H')
-			van_dist += h_van_r;
-		else if (atom_type_2 == 'C')
-			van_dist += c_van_r;
-		else if (atom_type_2 == 'O')
-			van_dist += o_van_r;
-
-		if (van_dist >= dist)
-		{
-			//If distance less than Van der Waal radii atoms are bonded
-			is_bonded = true;
-		}
-		return (is_bonded);
-	}
-
-	void testBondsDictList(List<Dictionary<int, float[][]>> bondsDictList)
-	{
-		Dictionary<int, float[][]> currentDict;
-		float[] atom1Coords, atom2Coords;
-
-		for (int dictIndex = 0; dictIndex < bondsDictList.Count; dictIndex++)
-		{
-			currentDict = bondsDictList[dictIndex];
-			Debug.Log("Now looking at dictionary " + dictIndex);
-
-			foreach (KeyValuePair<int, float[][]> entry in currentDict)
-			{
-				Debug.Log("Key (frame): " + entry.Key);
-				Debug.Log("Values:");
-				atom1Coords = entry.Value[0];
-				atom2Coords = entry.Value[1];
-				Debug.Log("The 1st atoms coords are");
-				foreach (float coord in atom1Coords)
-					Debug.Log(coord);
-				Debug.Log("The 2nd atoms coords are");
-				foreach (float coord in atom2Coords)
-					Debug.Log(coord);
-			}
-		}
-	}
-
-	void print3dArray(Vector3[][] a3dArray)
-	{
-		// Array iterators
-		int atomIndex, frameIndex;
-
-		double xCoord, yCoord, zCoord;
-		int numberOfAtoms = a3dArray.Length;
-		int numberOfFrames = a3dArray[0].Length;
-
-		for (atomIndex = 0; atomIndex < numberOfAtoms; atomIndex++)
-		{
-			Debug.Log("Now looking at atom " + atomIndex);
-
-			for (frameIndex = 0; frameIndex < numberOfFrames; frameIndex++)
-			{
-				Debug.Log("Now looking at frame " + frameIndex);
-
-				xCoord = a3dArray[atomIndex][frameIndex][0];
-				yCoord = a3dArray[atomIndex][frameIndex][1];
-				zCoord = a3dArray[atomIndex][frameIndex][2];
-
-				Debug.Log("The x coord is " + xCoord + ", the y coord is " + yCoord + " and the z coord is " + zCoord);
-			}
-
-			Debug.Log(' ');
-		}
 	}
 }
