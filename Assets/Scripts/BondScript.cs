@@ -9,12 +9,13 @@ public class BondScript : MonoBehaviour
     Vector3 positionWhenNotInReaction = new Vector3(-20, -20, -20);
     Vector3 scaleWhenNotInReaction = new Vector3(0.1f, 0, 0.1f);
 
-    // This variable gets initialized in MainSceneScript in the instantiateBonds function.
+    // The bondsDict dictionary is mentioned in section 2.1 of the SDD.
+    // It gets initialized in MainSceneScript in the instantiateBonds function.
     // 1st Vector3 is for position in a frame, 2nd Vector3 is for localScale in a frame, 
     // and Quaternion is for rotation in a frame.
     public Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> bondsDict;
 
-    // Start is called before the first frame update
+    // Start is called right after the bond objects are instantiated at the beginning of a reaction
     void Start()
     {
         // transform.position and localScale refer to the position and scale of the bond object this script is attached to
@@ -22,7 +23,7 @@ public class BondScript : MonoBehaviour
         transform.localScale = scaleWhenNotInReaction;
     }
 
-    // Update is called once per frame
+    // Update is called during every frame update
     void Update()
     {
         // Check if the reaction should be playing

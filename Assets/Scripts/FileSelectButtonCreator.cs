@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// This script is attached to an empty object in the file select scene. This script runs when that scene is accessed.
+// This script is attached to the Button Creator Script object in the file select scene
 public class FileSelectButtonCreator : MonoBehaviour
 {
+    // These objects are modified by going to the object hierarchy in the file select scene, click on the Canvas object to show it's
+    // children, click on the Button Creator Script object, look at the Unity inspector, look at the File Select Button Creator (Script) section,
+    // and drag and drop objects from the Project section at the bottom to the spots on the inspector.
     public GameObject buttonPrefab;
     public GameObject scrollViewContent;
     public Text displayText;
 
-    // Start is called before the first frame update
+    // This function is called when the user goes to the file select scene
     void Start()
     {
         List<string> filePaths = new List<string>();
