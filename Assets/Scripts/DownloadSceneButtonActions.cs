@@ -14,6 +14,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	// click on the Buttons Action Script object, look at the Unity inspector, look at the Download Scene Button Actions
 	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
 	public Text inputFieldText;
+    public Text displayText;
 
 	/*HashSet<string> filesInFilesFolder;
 	public void Start()
@@ -75,12 +76,14 @@ public class DownloadSceneButtonActions : MonoBehaviour
 					{
 						File.WriteAllText("Assets/Files/" + fileName, data);
 						Debug.Log("Just added file to files folder");
+                        displayText.text = fileName + " pulled from server";
 					}
 					else
 					{
 						Debug.Log("File not valid");
-						// Error handling features
-					}
+                        // Error handling features
+                        displayText.text = fileName + " failed to pull";
+                    }
 				} 
 				catch
 				{
