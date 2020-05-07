@@ -7,17 +7,11 @@ using UnityEngine.Networking;
 using System.Globalization;
 using UnityEngine.SceneManagement;
 
+// This script is attached to the Script object in the Download scene
 public class DownloadSceneButtonActions : MonoBehaviour
 {
 
     public GameObject inputField;
-	//private readonly UnityWebRequest uwr;
-
-	void Start()
-	{
-       
-    }
-
 
 	public void goToMainMenu()
 	{
@@ -69,25 +63,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 			}
 		}
 
-		/*WWW dataFromServer = new WWW(url);
-		yield return dataFromServer;
-		try
-		{
-			if (fileIsGood(dataFromServer.text))
-			{
-				File.WriteAllText("Assets/Files/" + fileName, dataFromServer.text);
-			}
-			else
-			{
-				Debug.Log("File not valid");
-			}
-		}
-		catch
-		{
-			Debug.Log("File not valid");
-			// Implement more error handling features
-		}*/
-
+		/*
 		//var uwr = new UnityWebRequest("http://people.missouristate.edu/riqbal/data/mosgcone.txt", UnityWebRequest.kHttpVerbGET);
 
 		//Update with the proper file type or file name
@@ -109,7 +85,6 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		// This function is almost the same as the file reading function from MainSceneScript.
 
 		string[] fileLines = fileContents.Split('\n');
-		string debugString; // Used for string interpolation
 
 		// The first line of every frame contains the number of atoms
 		int numberOfAtoms = int.Parse(fileLines[0]);
@@ -138,8 +113,8 @@ public class DownloadSceneButtonActions : MonoBehaviour
 			if (!validAtoms.Contains(atomString))
 			{
 				// Error
-				debugString = $"Error: {atomString} on line {currentLineIndex + 1} of the input file is not a valid atom type";
-				Debug.Log(debugString);
+				Debug.Log("Error: " + atomString + " on line " + (currentLineIndex + 1).ToString() + " of the input file is not a " +
+					"valid atom type");
 				return false;
 			}
 

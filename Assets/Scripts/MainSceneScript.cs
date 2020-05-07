@@ -5,27 +5,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// This script is attached to an empty object in MainScene. It runs when that scene gets accessed.
+// This script is attached to the Script object in MainScene
 public class MainSceneScript : MonoBehaviour
 {
+	// These objects are modified by going to the object hierarchy in MainScene, click on the Script object, 
+	// look at the Unity inspector, look at the Main Scene Script (Script) section, and drag and drop objects 
+	// from the Project section at the bottom to the spots on the inspector.
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, bondPrefab;
+
 	int numberOfFrames;
 
-	// The following variables can be accessed from any script using MainSceneScript.variableName
+	// The following variables can be accessed from any script using MainSceneScript.variableName.
+	// These are mentioned in section 2.2 of the SDD.
 	public static int frame;
 	public static string filePath;
 	public static bool playing;
 	public static Vector3 reactionCenterPoint;
 
-	// Start is called before the first frame update
+	// Start is called when the user presses the launch button on the file select scene, which causes 
+	// the scene to be switched to MainScene
 	void Start()
 	{
+		// The data tuple is mentioned in section 2.3 of the SDD
 		Tuple<int, string[], Vector3[][]> data = getDataFromXYZFile(filePath);
 		numberOfFrames = data.Item1;
 		string[] atomTypes = data.Item2;
 		Vector3[][] coords3dArray = data.Item3;
 
 		reactionCenterPoint = getReactionCenterPoint(coords3dArray);
+
+		// The bondsDictList list is mentioned in section 2.3 of the SDD.
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);
@@ -37,6 +46,7 @@ public class MainSceneScript : MonoBehaviour
 		playing = true;
 	}
 
+	// Update is called during every frame update
 	void Update()
 	{
 		if (playing)
@@ -49,7 +59,8 @@ public class MainSceneScript : MonoBehaviour
 
 	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
 	{
-		// Returns the average point of all coordinates in a reaction
+		// Returns the average point of all coordinates in a reaction.
+		// Mentioned in 
 		int numberOfAtoms = coords3dArray.Length;
 		int numberOfFrames = coords3dArray[0].Length;
 		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
