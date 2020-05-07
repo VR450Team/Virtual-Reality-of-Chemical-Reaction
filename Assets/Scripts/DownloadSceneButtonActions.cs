@@ -14,6 +14,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	// click on the Buttons Action Script object, look at the Unity inspector, look at the Download Scene Button Actions
 	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
 	public Text inputFieldText;
+    public Text displayText;
 
 	// The following code, along with the commented out code in the downloadFile function provides a way for the program to 
 	// check if the user tries to request a file from the server that they already have a copy of. 
@@ -78,16 +79,19 @@ public class DownloadSceneButtonActions : MonoBehaviour
 					{
 						File.WriteAllText("Assets/Files/" + fileName, data);
 						Debug.Log("Just added file to files folder");
+                        displayText.text = fileName + " pulled from server";
 					}
 					else
 					{
 						Debug.Log("File not valid because of atom types");
+						displayText.text = fileName + " failed to pull";
 						// Error handling features
 					}
-				} 
+				}
 				catch
 				{
 					Debug.Log("File not valid");
+					displayText.text = fileName + " failed to pull";
 					// Error handling features
 				}
 			}
