@@ -6,7 +6,12 @@ using UnityEngine;
 // This script is attached to every bond object and prefab
 public class BondScript : MonoBehaviour
 {
+    // -20 is what we made the x, y, and z coordinate for a bond be when it is not in a reaction
     Vector3 positionWhenNotInReaction = new Vector3(-20, -20, -20);
+    // The 1st and 3rd values are the x and z values and they affect the thickness of the bond object 
+    // and they will always be 0.1. They 2nd value is the y value and it affects the length of a bond
+    // object and it will change to be an appropriate length to make it appear as if the bond is connecting
+    // 2 atoms.
     Vector3 scaleWhenNotInReaction = new Vector3(0.1f, 0, 0.1f);
 
     // The bondsDict dictionary is mentioned in section 2.1 of the SDD.
@@ -23,7 +28,8 @@ public class BondScript : MonoBehaviour
         transform.localScale = scaleWhenNotInReaction;
     }
 
-    // Update is called during every frame update
+    // Update is called during every frame update. This function for BondScript is mentioned in section 
+    // 3.2.3.5.1.9c of the SDD.
     void Update()
     {
         // Check if the reaction should be playing

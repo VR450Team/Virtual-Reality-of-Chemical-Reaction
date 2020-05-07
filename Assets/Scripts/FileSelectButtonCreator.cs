@@ -50,10 +50,13 @@ public class FileSelectButtonCreator : MonoBehaviour
             // - 17 so we the ".txt" at the end isn't included.
             string reactionName = filePath.Substring(13, filePath.Length - 17);
             button.GetComponentInChildren<Text>().text = reactionName;
+
+            // Add button click listener
             button.GetComponent<Button>().onClick.AddListener(delegate { setFilePathAndDisplayMessage(filePath, reactionName); });
         }
     }
 
+    // This function is mentioned in sections 3.2.3.5.1.6a and 3.2.3.5.1.7c of the SDD
     void setFilePathAndDisplayMessage(string filePath, string reactionName)
 	{
         MainSceneScript.filePath = filePath;

@@ -4,20 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // This script is attached to the MainMenu object on the canvas in the MainMenu scene. These functions are in 
-// button click listeners and get called when one of the buttons is clicked. Button click listeners are the Model
-// part of the Model-View-Controller architecture for us.
+// button click listeners and get called when one of the buttons is clicked. These functions are mentioned in sections
+// 3.2.3.5.1.3c, 3.2.3.5.1.2c, 
 public class MainMenu : MonoBehaviour
 {
+    // This function is mentioned in section 3.2.3.5.1.3a of the SDD
     public void quitProgram()
     {
         Application.Quit();
     }
-    
+
+    // This function is mentioned in section 3.2.3.5.1.1a of the SDD
     public void goToFileSelect()
     {
         SceneManager.LoadScene("FileSelect");
     }
 
+    // This function is mentioned in section 3.2.3.5.1.2a of the SDD
     public void goToDownloadScene()
     {
         SceneManager.LoadScene("Download");

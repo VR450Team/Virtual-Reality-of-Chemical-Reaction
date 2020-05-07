@@ -10,9 +10,25 @@ using UnityEngine.SceneManagement;
 // This script is attached to the Script object in the Download scene
 public class DownloadSceneButtonActions : MonoBehaviour
 {
+	// This Text object is modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
+	// click on the Buttons Action Script object, look at the Unity inspector, look at the Download Scene Button Actions
+	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
+	public Text inputFieldText;
 
-    public GameObject inputField;
+	/*HashSet<string> filesInFilesFolder;
+	public void Start()
+	{
+		filesInFilesFolder = new HashSet<string>();
+		foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
+		{
+			if (filePath.Substring(filePath.Length - 4) == ".txt")
+				filesInFilesFolder.Add(filePath.Substring(13, filePath.Length - 13));
+		}
+		//foreach (string file in filesInFilesFolder)
+			//Debug.Log(file);
+	}*/
 
+	// This function mentioned in sections 3.2.3.5.1.5a and 3.2.3.5.1.5c of the SDD
 	public void goToMainMenu()
 	{
 		SceneManager.LoadScene("MainMenu");
@@ -20,13 +36,23 @@ public class DownloadSceneButtonActions : MonoBehaviour
 
 	public void startDownload()
 	{
-		StartCoroutine(downloadFile());
+		string fileName = inputFieldText.text;
+
+		/*if (filesInFilesFolder.Contains(fileName))
+		{
+			Debug.Log("You already have the file you requested");
+		}
+		else
+		{
+			StartCoroutine(downloadFile(fileName));
+		}*/
+
+		StartCoroutine(downloadFile(fileName));
 	}
 
-	// The algorithm in downloadFile is mentioned in section 3.2.3.5.1.4a of the SDD
-	IEnumerator downloadFile()
+	// The algorithm in downloadFile is mentioned in sections 3.2.3.5.1.4a and 3.2.3.5.1.4c of the SDD
+	IEnumerator downloadFile(string fileName)
 	{
-        string fileName = inputField.GetComponent<Text>().text; 
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
 

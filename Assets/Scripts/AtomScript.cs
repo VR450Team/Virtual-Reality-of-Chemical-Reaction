@@ -9,7 +9,8 @@ public class AtomScript : MonoBehaviour
     // This gets initialized from MainSceneScript in the instantiateAtoms function.
     public Vector3[] coords2dArray;
 
-    // Update is called during every frame update
+    // Update is called during every frame update. This function for AtomScript is mentioned in section 
+    // 3.2.3.5.1.9c of the SDD.
     void Update()
     {
         if (MainSceneScript.playing)

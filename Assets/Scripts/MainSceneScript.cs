@@ -22,7 +22,8 @@ public class MainSceneScript : MonoBehaviour
 	public static Vector3 reactionCenterPoint;
 
 	// Start is called when the user presses the launch button on the file select scene, which causes 
-	// the scene to be switched to MainScene
+	// the scene to be switched to MainScene. This function and all the functions that get called within 
+	// this function are mentioned in section 3.2.3.5.1.8c of the SDD.
 	void Start()
 	{
 		// The data tuple is mentioned in section 2.3 of the SDD
@@ -45,7 +46,8 @@ public class MainSceneScript : MonoBehaviour
 		playing = true;
 	}
 
-	// Update is called during every frame update
+	// Update is called during every frame update. This function for MainSceneScript is mentioned in section
+	// 3.2.3.5.1.9c of the SDD.
 	void Update()
 	{
 		if (playing)

@@ -13,7 +13,8 @@ public class LaunchButtonScript : MonoBehaviour
         MainSceneScript.filePath = "nothing";
 	}
 
-    // This function is attached to a button click listener for the launch button
+    // This function is attached to a button click listener for the launch button.
+    // This function is mentioned in section 3.2.3.5.1.8c of the SDD.
     public void goToMainScene()
     {
         // filePath gets changed by the user clicking a button to select a reaction.

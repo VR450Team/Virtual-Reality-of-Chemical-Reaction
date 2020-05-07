@@ -62,7 +62,7 @@ public class NavMenuButtonActions : MonoBehaviour
 		SceneManager.LoadScene("MainMenu");
 	}
 
-	// This function is mentioned in section 3.2.3.5.1.9a of the SDD
+	// This function is mentioned in sections 3.2.3.5.1.9a and 3.2.3.5.1.13c of the SDD
 	public void restartReaction()
 	{
 		if (!MainSceneScript.playing)
@@ -75,7 +75,7 @@ public class NavMenuButtonActions : MonoBehaviour
 		MainSceneScript.frame = 0;
 	}
 
-	// This function is mentioned in section 3.2.3.5.1.8a of the SDD
+	// This function is mentioned in sections 3.2.3.5.1.8a and 3.2.3.5.1.10c of the SDD
 	public void pauseOrPlayReaction()
 	{
 		if (MainSceneScript.playing)
@@ -98,7 +98,7 @@ public class NavMenuButtonActions : MonoBehaviour
 
 	// All of the following functions relate to section 3.2.3.5.1.6b of the SDD, which goes over updates of the main camera
 
-	// The rotation functions are mentioned in section 3.2.3.5.1.12a of the SDD
+	// The rotation functions are mentioned in sections 3.2.3.5.1.12a and 3.2.3.5.1.11c of the SDD
 	public void rotateLeft()
 	{
 		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, horizontalRotation, 20);
@@ -119,7 +119,7 @@ public class NavMenuButtonActions : MonoBehaviour
 		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, verticalRotation, -20);
 	}
 
-	// The zoom in and zoom out functions are mentioned in section 3.2.3.5.1.13a of the SDD
+	// The zoom in and zoom out functions are mentioned in sections 3.2.3.5.1.13a and 3.2.3.5.1.12c of the SDD
 	public void zoomIn()
 	{
         Camera.main.fieldOfView -= 4;
