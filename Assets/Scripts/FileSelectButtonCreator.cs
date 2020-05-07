@@ -17,6 +17,8 @@ public class FileSelectButtonCreator : MonoBehaviour
     // This function is called when the user goes to the file select scene
     void Start()
     {
+        // This algorithm is mentioned in sections 3.2.3.5.1.1a and 3.2.3.5.1.2c of the SDD
+
         List<string> filePaths = new List<string>();
         foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
         {

@@ -13,11 +13,10 @@ public class MainSceneScript : MonoBehaviour
 	// from the Project section at the bottom to the spots on the inspector.
 	public GameObject hydrogenPrefab, carbonPrefab, oxygenPrefab, fluorinePrefab, brominePrefab, bondPrefab;
 
-	int numberOfFrames;
-
 	// The following variables can be accessed from any script using MainSceneScript.variableName.
 	// These are mentioned in section 2.2 of the SDD.
 	public static int frame;
+	public static int numberOfFrames;
 	public static string filePath;
 	public static bool playing;
 	public static Vector3 reactionCenterPoint;
@@ -34,7 +33,7 @@ public class MainSceneScript : MonoBehaviour
 
 		reactionCenterPoint = getReactionCenterPoint(coords3dArray);
 
-		// The bondsDictList list is mentioned in section 2.3 of the SDD.
+		// The bondsDictList list is mentioned in section 2.3 of the SDD
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = getBonds(atomTypes, coords3dArray);
 
 		instantiateAtoms(atomTypes, coords3dArray);

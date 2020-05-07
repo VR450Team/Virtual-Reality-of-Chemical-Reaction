@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 510547291}
   - component: {fileID: 510547294}
   m_Layer: 0
-  m_Name: Exit Button
+  m_Name: Main Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,8 +1005,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 534, y: -298}
-  m_SizeDelta: {x: 48.4, y: 30}
+  m_AnchoredPosition: {x: 514, y: -295}
+  m_SizeDelta: {x: 78.2, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510547291
 MonoBehaviour:
@@ -1048,8 +1048,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 510547294}
-        m_MethodName: RMain
+      - m_Target: {fileID: 1335487415}
+        m_MethodName: goToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1549,7 +1549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 473, y: -296}
+  m_AnchoredPosition: {x: 434, y: -296}
   m_SizeDelta: {x: 68.7, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984166076
@@ -1744,7 +1744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 411.7, y: -281}
+  m_AnchoredPosition: {x: 420, y: -263}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203471375
@@ -2895,7 +2895,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Exit
+  m_Text: Main Menu
 --- !u!222 &1803245822
 CanvasRenderer:
   m_ObjectHideFlags: 0

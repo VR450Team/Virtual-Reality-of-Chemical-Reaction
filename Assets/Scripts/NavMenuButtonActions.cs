@@ -10,12 +10,12 @@ public class NavMenuButtonActions : MonoBehaviour
 	public Text buttonText;
 	public Button pauseAndPlayButton;
 	public Image playImage, pauseRect1, pauseRect2;
-	float distanceFromCenterPoint;
-	Vector3 leftRotation = new Vector3(0, 1, 0);
-	Vector3 rightRotation = new Vector3(0, -1, 0);
-	Vector3 upRotation = new Vector3(1, 0, 0);
-	Vector3 downRotation = new Vector3(-1, 0, 0);
 
+	Vector3 horizontalRotation = new Vector3(0, 1, 0);
+	Vector3 verticalRotation = new Vector3(1, 0, 0);
+
+	// Update function is called every frame update. All that needs to be done is check if the user
+	// has pressed any of the keys and call the corresponding function.
 	public void Update()
 	{
 		if (Input.GetKeyDown("f"))
@@ -28,7 +28,7 @@ public class NavMenuButtonActions : MonoBehaviour
 			pauseOrPlayReaction();
 
 		if (Input.GetKeyDown("e"))
-			exitApplication();
+			goToMainMenu();
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
 			rotateLeft();
@@ -49,12 +49,20 @@ public class NavMenuButtonActions : MonoBehaviour
 			zoomOut();
 	}
 
+	// This function is mentioned in section 3.2.3.5.1.10a of the SDD
 	public void goToReactionSelectScreen()
 	{
 		MainSceneScript.playing = false;
 		SceneManager.LoadScene("FileSelect");
 	}
 
+	// This function is mentioned in section 3.2.3.5.1.11a of the SDD
+	public void goToMainMenu()
+	{
+		SceneManager.LoadScene("MainMenu");
+	}
+
+	// This function is mentioned in section 3.2.3.5.1.9a of the SDD
 	public void restartReaction()
 	{
 		if (!MainSceneScript.playing)
@@ -67,60 +75,51 @@ public class NavMenuButtonActions : MonoBehaviour
 		MainSceneScript.frame = 0;
 	}
 
+	// This function is mentioned in section 3.2.3.5.1.8a of the SDD
 	public void pauseOrPlayReaction()
 	{
 		if (MainSceneScript.playing)
 		{
-			//buttonText.text = "Play";
 			MainSceneScript.playing = false;
 			pauseRect1.enabled = false;
 			pauseRect2.enabled = false;
 			playImage.enabled = true;
-			//pauseRect1.image.setActive(false);
-			//pauseRect2.image.setActive(false);
-			//Image img = pauseAndPlayButton.GetComponentInChildren<PlayImage>();
-			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle1>().setActive(false);
-			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle2>().setActive(false);
-			//pauseAndPlayButton.GetComponentInChildren<PlayImage>().setActive(true);
 		} else
 		{
-			//buttonText.text = "Pause";
-			MainSceneScript.playing = true;
-			playImage.enabled = false;
-			pauseRect1.enabled = true;
-			pauseRect2.enabled = true;
-			//pauseAndPlayButton.GetComponentInChildren<PlayImage>().setActive(false);
-			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle1>().setActive(true);
-			//pauseAndPlayButton.GetComponentInChildren<PauseImage>().GetComponentInChildren<Rectangle2>().setActive(true);
+			if (MainSceneScript.frame < MainSceneScript.numberOfFrames)
+			{
+				MainSceneScript.playing = true;
+				playImage.enabled = false;
+				pauseRect1.enabled = true;
+				pauseRect2.enabled = true;
+			}
 		}
 	}
 
-	public void exitApplication()
-	{
-		Debug.Log("Application quit. If you're running this in the editor then nothing will happen.");
-		Application.Quit();
-	}
+	// All of the following functions relate to section 3.2.3.5.1.6b of the SDD, which goes over updates of the main camera
 
+	// The rotation functions are mentioned in section 3.2.3.5.1.12a of the SDD
 	public void rotateLeft()
 	{
-		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, leftRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, horizontalRotation, 20);
 	}
 
 	public void rotateRight()
 	{
-		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, rightRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, horizontalRotation, -20);
 	}
 
 	public void rotateUp()
 	{
-		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, upRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, verticalRotation, 20);
 	}
 
 	public void rotateDown()
 	{
-		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, downRotation, 20);
+		Camera.main.transform.RotateAround(MainSceneScript.reactionCenterPoint, verticalRotation, -20);
 	}
 
+	// The zoom in and zoom out functions are mentioned in section 3.2.3.5.1.13a of the SDD
 	public void zoomIn()
 	{
         Camera.main.fieldOfView -= 4;

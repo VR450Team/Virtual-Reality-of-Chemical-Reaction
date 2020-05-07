@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // This script is attached to the MainMenu object on the canvas in the MainMenu scene. These functions are in 
-// button click listeners and get called when one of the buttons is clicked.
+// button click listeners and get called when one of the buttons is clicked. Button click listeners are the Model
+// part of the Model-View-Controller architecture for us.
 public class MainMenu : MonoBehaviour
 {
     public void quitProgram()

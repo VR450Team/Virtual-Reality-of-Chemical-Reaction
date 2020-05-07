@@ -23,6 +23,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		StartCoroutine(downloadFile());
 	}
 
+	// The algorithm in downloadFile is mentioned in section 3.2.3.5.1.4a of the SDD
 	IEnumerator downloadFile()
 	{
         string fileName = inputField.GetComponent<Text>().text; 
