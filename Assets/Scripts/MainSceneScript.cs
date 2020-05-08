@@ -89,7 +89,13 @@ public class MainSceneScript : MonoBehaviour
 	}
 
 	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
-	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
+    // FR.4 : The simulation will contain atoms represented as spheres.
+    // FR.8 : During a simulation, the color of the atoms will be based on a color palette that is generally accepted by chemists.
+    // FR.9 : During a simulation, the size of the atoms being displayed will be proportional to their mass.
+    // This function places the needed prefabs in the MainScene and the prefabs for atoms are all spheres.
+    // Each prefab has the correct hexadecimal color value based off of a table provided by Dr. Siebert.
+    // The size is also set in the prefab.
+    void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
 	{
 		GameObject atom;
 		Dictionary<string, GameObject> prefabsDict = new Dictionary<string, GameObject>()
@@ -113,8 +119,10 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
-	// This function mentioned in section 3.2.3.5.1.8c of the SDD
-	void instantiateBonds(List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList)
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
+    // FR.6 : The simulation will contain covalent bonds represented by cylinders.
+    //This function places the needed prefabs in the MainScene and the prefab for a covalent bonds is a cylinder.
+    void instantiateBonds(List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList)
 	{
 		GameObject bond;
 		foreach (Dictionary<int, Tuple<Vector3, Vector3, Quaternion>> dict in bondsDictList)
@@ -128,7 +136,8 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
-	// This function mentioned in section 3.2.3.5.1.8c of the SDD
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
+	// FR.11 : The program must be able to read in data from a file.
 	Tuple<int, string[], Vector3[][]> getDataFromXYZFile(string filePath)
 	{
 		// Get an array containing all lines of a reaction data file
@@ -224,7 +233,8 @@ public class MainSceneScript : MonoBehaviour
 	}
 
 	// This function mentioned in section 3.2.3.5.1.8c of the SDD
-	List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> getBonds(string[] atomTypes, Vector3[][] coords3dArray)
+    // FR.7.1 : The covalent bonds will be displayed based on Van der Waals Radius.
+    List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> getBonds(string[] atomTypes, Vector3[][] coords3dArray)
 	{
 		int numberOfAtoms = coords3dArray.Length;
 		int numberOfFrames = coords3dArray[0].Length;
@@ -245,9 +255,10 @@ public class MainSceneScript : MonoBehaviour
 		// bondsDictList is a list that will contain dictionaries of bond data. This list gets returned at the end.
 		List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList = new List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>>();
 
-		// To find the bonding distance of 2 atoms, add their values of the dictionary below.
-		// VDW stands for van der waals. These values are based on VDW radii.
-		Dictionary<string, float> VDWValues = new Dictionary<string, float>()
+        // To find the bonding distance of 2 atoms, add their values of the dictionary below.
+        // VDW stands for van der waals. These values are based on VDW radii.
+        // FR.7.1 : The covalent bonds will be displayed based on Van der Waals Radius.
+        Dictionary<string, float> VDWValues = new Dictionary<string, float>()
 		{
 			{"H", 0.6f },
 			{"C", 0.85f },
@@ -256,11 +267,13 @@ public class MainSceneScript : MonoBehaviour
 			{"Br", 0.925f }
 		};
 
-		// Compare every atom with every other atom. Look at their distances away from each other in every frame. If they are 
-		// bonded in any frames, create a dictionary and have the keys be the frames they are bonded in and have the values be 
-		// the data that the bond objects will need to appear that it is connecting the 2 atoms. This data includes the position,
-		// scale, and rotation. 
-		for (atom1Index = 0; atom1Index < numberOfAtoms - 1; atom1Index++)
+        // Compare every atom with every other atom. Look at their distances away from each other in every frame. If they are 
+        // bonded in any frames, create a dictionary and have the keys be the frames they are bonded in and have the values be 
+        // the data that the bond objects will need to appear that it is connecting the 2 atoms. This data includes the position,
+        // scale, and rotation. 
+        // FR.7.1 : The covalent bonds will be displayed based on Van der Waals Radius.
+
+        for (atom1Index = 0; atom1Index < numberOfAtoms - 1; atom1Index++)
 		{
 			atom1Type = atomTypes[atom1Index];
 			for (atom2Index = atom1Index + 1; atom2Index < numberOfAtoms; atom2Index++)
