@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -19,25 +20,33 @@ public class FileSelectButtonCreator : MonoBehaviour
     {
         // This algorithm is mentioned in sections 3.2.3.5.1.1a and 3.2.3.5.1.2c of the SDD
 
-        List<string> filePaths = new List<string>();
-        foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
+        // properFiles will be filled with names of .xyz and .txt files
+        List<string> properFiles = new List<string>();
+        string fileExtension;
+        string[] filesInCurrentDirectory = Directory.GetFiles(".");
+
+        foreach (string file in filesInCurrentDirectory)
         {
-            // Look for files that end in ".txt".
-            // Some files will be .meta files so ignore those.
-            if (filePath.Substring(filePath.Length - 4) == ".txt")
-                filePaths.Add(filePath);
+            // Look for files that end in ".txt" or ".xyz".
+            // fileExtension is last 4 characters of the file
+            fileExtension = file.Substring(file.Length - 4);
+            if (fileExtension == ".txt" || fileExtension == ".xyz")
+			{
+                // file starts with a ".\" so remove that
+                properFiles.Add(file.Substring(2, file.Length - 2));
+            }
         }
 
         // The following code changes the size of the scroll view content area.
         // A button has a height of 30 by default so make the scroll view content area be a height of 
         // (number of files * 40) to have spacing of 10 between buttons. 
-        scrollViewContent.GetComponent<RectTransform>().sizeDelta = new Vector2(1, filePaths.Count * 40);
+        scrollViewContent.GetComponent<RectTransform>().sizeDelta = new Vector2(1, properFiles.Count * 40);
 
         // Make the y coord of the 1st button be -20 because if it was 0, only the bottom half will show.
         Vector3 buttonPosition = new Vector3(0, -20, 0);
 
         GameObject button;
-        foreach (string filePath in filePaths)
+        foreach (string file in properFiles)
         {
             button = Instantiate(buttonPrefab, scrollViewContent.transform) as GameObject;
             button.transform.localPosition = buttonPosition;
@@ -45,21 +54,19 @@ public class FileSelectButtonCreator : MonoBehaviour
             // Set the position for the next button
             buttonPosition.y -= 40;
 
-            // The first 13 characters are "Assets/Files/" and we don't want that in the button's text.
-            // The second parameter is the length of the substring, and we need to set it to filePath.Length
-            // - 17 so we the ".txt" at the end isn't included.
-            string reactionName = filePath.Substring(13, filePath.Length - 17);
+            // reactionName is the file name without the extension
+            string reactionName = file.Substring(0, file.Length - 4);
             button.GetComponentInChildren<Text>().text = reactionName;
 
             // Add button click listener
-            button.GetComponent<Button>().onClick.AddListener(delegate { setFilePathAndDisplayMessage(filePath, reactionName); });
+            button.GetComponent<Button>().onClick.AddListener(delegate { setFilePathAndDisplayMessage(file, reactionName); });
         }
     }
 
     // This function is mentioned in sections 3.2.3.5.1.6a and 3.2.3.5.1.7c of the SDD
-    void setFilePathAndDisplayMessage(string filePath, string reactionName)
+    void setFilePathAndDisplayMessage(string file, string reactionName)
 	{
-        MainSceneScript.filePath = filePath;
+        MainSceneScript.filePath = file;
         displayText.text = reactionName + " Selected";
     }
 }

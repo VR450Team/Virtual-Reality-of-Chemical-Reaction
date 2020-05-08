@@ -7,11 +7,12 @@ using UnityEngine.Networking;
 using System.Globalization;
 using UnityEngine.SceneManagement;
 
-// This script is attached to the Script object in the Download scene
+// This script is attached to the Button Actions Script object in the Download scene
 // FR.3.1: The download from server scene will allow the user to specify the file requested from the web server via text input box.
+
 public class DownloadSceneButtonActions : MonoBehaviour
 {
-	// This Text object is modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
+	// These Text objects are modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
 	// click on the Buttons Action Script object, look at the Unity inspector, look at the Download Scene Button Actions
 	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
 	public Text inputFieldText;
@@ -19,16 +20,16 @@ public class DownloadSceneButtonActions : MonoBehaviour
 
 	// The following code, along with the commented out code in the downloadFile function provides a way for the program to 
 	// check if the user tries to request a file from the server that they already have a copy of. 
-	/*HashSet<string> filesInFilesFolder;
+	/*HashSet<string> filesInCurrentDirectory;
 	public void Start()
 	{
-		filesInFilesFolder = new HashSet<string>();
+		filesInCurrentDirectory = new HashSet<string>();
 		foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
 		{
 			if (filePath.Substring(filePath.Length - 4) == ".txt")
-				filesInFilesFolder.Add(filePath.Substring(13, filePath.Length - 13));
+				filesInCurrentDirectory.Add(filePath.Substring(13, filePath.Length - 13));
 		}
-		//foreach (string file in filesInFilesFolder)
+		//foreach (string file in filesInCurrentDirectory)
 			//Debug.Log(file);
 	}*/
 
@@ -72,28 +73,27 @@ public class DownloadSceneButtonActions : MonoBehaviour
 				{
 					if (fileIsGood(data))
 					{
-						File.WriteAllText("Assets/Files/" + fileName, data);
-						Debug.Log("Just added file to files folder");
-                        displayText.text = fileName + " pulled from server";
+						// Create new file in the current directory with the content being the data of the 
+						// text file that is on the web server
+						File.WriteAllText(fileName, data);
+						Debug.Log("Just added file to current directory");
+                        displayText.text = fileName + " pulled from server and added to current directory";
 					}
 					else
 					{
 						Debug.Log("File not valid because of atom types");
-						displayText.text = fileName + " failed to pull";
+						displayText.text = fileName + " has invalid atom types so no new file will be created";
 						// Error handling features
 					}
 				}
 				catch
 				{
 					Debug.Log("File not valid");
-					displayText.text = fileName + " file is not valid";
+					displayText.text = "Attempted to parse " + fileName + " but ran into errors so no new file will be created";
 					// Error handling features
 				}
 			}
 		}
-
-		//Update with the proper file type or file name
-		//Stores to the location C:\Users\(YourUserName)\AppData\LocalLow\DefaultCompany\Virtual Reality of Chemical Reactions
 	}
 
     // FR.11.1 : The program must be able to download data files from a web server.
