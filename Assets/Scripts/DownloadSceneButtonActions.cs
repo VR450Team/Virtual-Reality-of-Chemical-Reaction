@@ -41,15 +41,6 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	{
 		string fileName = inputFieldText.text;
 
-		/*if (filesInFilesFolder.Contains(fileName))
-		{
-			Debug.Log("You already have the file you requested");
-		}
-		else
-		{
-			StartCoroutine(downloadFile(fileName));
-		}*/
-
 		StartCoroutine(downloadFile(fileName));
 	}
 
@@ -67,7 +58,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
 			if (webRequest.isNetworkError)
 			{
 				Debug.Log("Error: " + webRequest.error);
-				displayText.text = fileName + " failed to pull";
+				displayText.text = fileName + " failed to access site";
 			}
 			else
 			{
@@ -92,26 +83,14 @@ public class DownloadSceneButtonActions : MonoBehaviour
 				catch
 				{
 					Debug.Log("File not valid");
-					displayText.text = fileName + " failed to pull";
+					displayText.text = fileName + " file is not valid";
 					// Error handling features
 				}
 			}
 		}
 
-		/*
-		//var uwr = new UnityWebRequest("http://people.missouristate.edu/riqbal/data/mosgcone.txt", UnityWebRequest.kHttpVerbGET);
-
 		//Update with the proper file type or file name
 		//Stores to the location C:\Users\(YourUserName)\AppData\LocalLow\DefaultCompany\Virtual Reality of Chemical Reactions
-		/*string path = Path.Combine(Application.persistentDataPath, "ReactionFile");
-        uwr.downloadHandler = new DownloadHandlerFile(path);
-        yield return uwr.SendWebRequest();
-        if (uwr.isNetworkError || uwr.isHttpError)
-            Debug.LogError(uwr.error);
-        else
-        {
-            Debug.Log("File successfully downloaded and saved to " + path);
-        }*/
 	}
 
 	bool fileIsGood(string fileContents)
