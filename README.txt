@@ -73,7 +73,7 @@ The relevant files include:
 
 Within the ‘Assets’ folder, the relevant files are:
 	‘Files’ – The two reaction files in our project are stored here under the names of ‘reaction1.txt’ and reaction2.txt.
-	‘Prefabs’ – This file contains the prefabs used to instantiate the atoms and covalent bonds in a simulation. Prefabs are best viewed in unity editor. The hexadecimal values match the values provided by Dr. Seibert in the ‘atom colors.png’ mentioned above. The prefabs use information from the ‘Materials’ folder such as color but that folder is not important. 
+	‘Prefabs’ – This file contains the prefabs used to instantiate the atoms and covalent bonds in a simulation as well as a button prefab. Prefabs are best viewed in unity editor. The hexadecimal values match the values provided by Dr. Seibert in the ‘atom colors.png’ mentioned above. The prefabs use information from the ‘Materials’ folder such as color but that folder is not important. 
 	‘Scenes’ – This folder includes all of the scenes that are present in our project such as:
 		‘Download.unity’ – the scene to allow the users to pull files from a web server.
 		‘FileSelect.unity’ – the scene to allow the users to select a file.
