@@ -30,6 +30,7 @@ public class BondScript : MonoBehaviour
 
     // Update is called during every frame update. This function for BondScript is mentioned in section 
     // 3.2.3.5.1.9c of the SDD.
+    // FR.7 : The covalent bonds will change position as the atoms change position.
     void Update()
     {
         // Check if the reaction should be playing

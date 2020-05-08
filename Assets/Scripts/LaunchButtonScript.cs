@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 // This script is attached to the Launch button script object in the file select scene
+// FR.3 : The file select scene will display a button for launching the chosen simulation.
 public class LaunchButtonScript : MonoBehaviour
 {
     // This function runs when the user goes to the file select scene
