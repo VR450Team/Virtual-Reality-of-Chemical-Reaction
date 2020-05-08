@@ -13,6 +13,7 @@ public class AtomScript : MonoBehaviour
     // 3.2.3.5.1.9c of the SDD.
     void Update()
     {
+        // Check if the reaction should be playing
         if (MainSceneScript.playing)
 		{
             // transform.position refers to the position of the atom this script is attached to

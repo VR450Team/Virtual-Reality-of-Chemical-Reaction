@@ -61,7 +61,7 @@ public class MainSceneScript : MonoBehaviour
 	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
 	{
 		// Returns the average point of all coordinates in a reaction.
-		// Mentioned in 
+		// Mentioned in section 3.2.3.5.1.8c of the SDD.
 		int numberOfAtoms = coords3dArray.Length;
 		int numberOfFrames = coords3dArray[0].Length;
 		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
@@ -88,6 +88,7 @@ public class MainSceneScript : MonoBehaviour
 		return new Vector3(averageXCoord, averageYCoord, averageZCoord);
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
 	void instantiateAtoms(string[] atomTypes, Vector3[][] coords3dArray)
 	{
 		GameObject atom;
@@ -112,6 +113,7 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD
 	void instantiateBonds(List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList)
 	{
 		GameObject bond;
@@ -126,6 +128,7 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD
 	Tuple<int, string[], Vector3[][]> getDataFromXYZFile(string filePath)
 	{
 		// Get an array containing all lines of a reaction data file
@@ -220,6 +223,7 @@ public class MainSceneScript : MonoBehaviour
 		return new Tuple<int, string[], Vector3[][]>(numberOfFrames, atomTypes, coords3dArray);
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD
 	List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> getBonds(string[] atomTypes, Vector3[][] coords3dArray)
 	{
 		int numberOfAtoms = coords3dArray.Length;

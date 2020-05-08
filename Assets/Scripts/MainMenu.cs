@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // This script is attached to the MainMenu object on the canvas in the MainMenu scene. These functions are in 
-// button click listeners and get called when one of the buttons is clicked. These functions are mentioned in sections
-// 3.2.3.5.1.3c, 3.2.3.5.1.2c, 
+// button click listeners and get called when one of the buttons is clicked.
 public class MainMenu : MonoBehaviour
 {
     // This function is mentioned in section 3.2.3.5.1.3a of the SDD
