@@ -23,18 +23,17 @@ public class FileSelectButtonCreator : MonoBehaviour
         // properFiles will be filled with names of .xyz and .txt files
         List<string> properFiles = new List<string>();
         string fileExtension;
-        string currentDirectory = Directory.GetCurrentDirectory();
-        string[] filesInCurrentDirectory = Directory.GetFiles(currentDirectory);
+        string[] filesInCurrentDirectory = Directory.GetFiles(".");
 
         foreach (string file in filesInCurrentDirectory)
         {
-            //Debug.Log(file);
             // Look for files that end in ".txt" or ".xyz".
             // fileExtension is last 4 characters of the file
             fileExtension = file.Substring(file.Length - 4);
             if (fileExtension == ".txt" || fileExtension == ".xyz")
 			{
-                properFiles.Add(file.Substring(currentDirectory.Length + 1, file.Length - 1 - currentDirectory.Length));
+                // file starts with a ".\" so remove that
+                properFiles.Add(file.Substring(2, file.Length - 2));
             }
         }
 

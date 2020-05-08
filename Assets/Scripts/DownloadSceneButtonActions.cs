@@ -7,10 +7,10 @@ using UnityEngine.Networking;
 using System.Globalization;
 using UnityEngine.SceneManagement;
 
-// This script is attached to the Script object in the Download scene
+// This script is attached to the Button Actions Script object in the Download scene
 public class DownloadSceneButtonActions : MonoBehaviour
 {
-	// This Text object is modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
+	// These Text objects are modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
 	// click on the Buttons Action Script object, look at the Unity inspector, look at the Download Scene Button Actions
 	// Script (Script) section, and drag and drop objects from the Project section at the bottom to the spots on the inspector.
 	public Text inputFieldText;
@@ -18,16 +18,16 @@ public class DownloadSceneButtonActions : MonoBehaviour
 
 	// The following code, along with the commented out code in the downloadFile function provides a way for the program to 
 	// check if the user tries to request a file from the server that they already have a copy of. 
-	/*HashSet<string> filesInFilesFolder;
+	/*HashSet<string> filesInCurrentDirectory;
 	public void Start()
 	{
-		filesInFilesFolder = new HashSet<string>();
+		filesInCurrentDirectory = new HashSet<string>();
 		foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
 		{
 			if (filePath.Substring(filePath.Length - 4) == ".txt")
-				filesInFilesFolder.Add(filePath.Substring(13, filePath.Length - 13));
+				filesInCurrentDirectory.Add(filePath.Substring(13, filePath.Length - 13));
 		}
-		//foreach (string file in filesInFilesFolder)
+		//foreach (string file in filesInCurrentDirectory)
 			//Debug.Log(file);
 	}*/
 
@@ -90,9 +90,6 @@ public class DownloadSceneButtonActions : MonoBehaviour
 				}
 			}
 		}
-
-		//Update with the proper file type or file name
-		//Stores to the location C:\Users\(YourUserName)\AppData\LocalLow\DefaultCompany\Virtual Reality of Chemical Reactions
 	}
 
 	bool fileIsGood(string fileContents)
