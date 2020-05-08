@@ -69,21 +69,23 @@ public class DownloadSceneButtonActions : MonoBehaviour
 				{
 					if (fileIsGood(data))
 					{
-						File.WriteAllText("Assets/Files/" + fileName, data);
-						Debug.Log("Just added file to files folder");
-                        displayText.text = fileName + " pulled from server";
+						// Create new file in the current directory with the content being the data of the 
+						// text file that is on the web server
+						File.WriteAllText(fileName, data);
+						Debug.Log("Just added file to current directory");
+                        displayText.text = fileName + " pulled from server and added to current directory";
 					}
 					else
 					{
 						Debug.Log("File not valid because of atom types");
-						displayText.text = fileName + " failed to pull";
+						displayText.text = fileName + " has invalid atom types so no new file will be created";
 						// Error handling features
 					}
 				}
 				catch
 				{
 					Debug.Log("File not valid");
-					displayText.text = fileName + " file is not valid";
+					displayText.text = "Attempted to parse " + fileName + " but ran into errors so no new file will be created";
 					// Error handling features
 				}
 			}
