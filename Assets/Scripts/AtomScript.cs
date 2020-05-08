@@ -11,6 +11,7 @@ public class AtomScript : MonoBehaviour
 
     // Update is called during every frame update. This function for AtomScript is mentioned in section 
     // 3.2.3.5.1.9c of the SDD.
+    // FR.5 : During the simulation, the atoms will change position.
     void Update()
     {
         if (MainSceneScript.playing)

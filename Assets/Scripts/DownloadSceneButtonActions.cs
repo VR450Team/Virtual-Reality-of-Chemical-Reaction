@@ -8,6 +8,7 @@ using System.Globalization;
 using UnityEngine.SceneManagement;
 
 // This script is attached to the Script object in the Download scene
+// FR.3.1: The download from server scene will allow the user to specify the file requested from the web server via text input box.
 public class DownloadSceneButtonActions : MonoBehaviour
 {
 	// This Text object is modified by going to the object hierarchy in the Download scene, click on the Canvas object, 
@@ -37,15 +38,17 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		SceneManager.LoadScene("MainMenu");
 	}
 
-	public void startDownload()
+    // FR.3.1: The download from server scene will allow the user to specify the file requested from the web server via text input box.
+    public void startDownload()
 	{
 		string fileName = inputFieldText.text;
 
 		StartCoroutine(downloadFile(fileName));
 	}
 
-	// The algorithm in downloadFile is mentioned in sections 3.2.3.5.1.4a and 3.2.3.5.1.4c of the SDD
-	IEnumerator downloadFile(string fileName)
+    // The algorithm in downloadFile is mentioned in sections 3.2.3.5.1.4a and 3.2.3.5.1.4c of the SDD
+    // FR.11.1 : The program must be able to download data files from a web server.
+    IEnumerator downloadFile(string fileName)
 	{
 		// Dr. Iqbal's file path for his web server
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
@@ -93,7 +96,8 @@ public class DownloadSceneButtonActions : MonoBehaviour
 		//Stores to the location C:\Users\(YourUserName)\AppData\LocalLow\DefaultCompany\Virtual Reality of Chemical Reactions
 	}
 
-	bool fileIsGood(string fileContents)
+    // FR.11.1 : The program must be able to download data files from a web server.
+    bool fileIsGood(string fileContents)
 	{
 		// Should return true if there are no errors while reading the file.
 		// This function is almost the same as the file reading function from MainSceneScript.
