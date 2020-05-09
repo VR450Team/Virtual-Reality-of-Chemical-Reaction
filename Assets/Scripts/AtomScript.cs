@@ -14,6 +14,7 @@ public class AtomScript : MonoBehaviour
     // FR.5 : During the simulation, the atoms will change position.
     void Update()
     {
+        // Check if the reaction should be playing
         if (MainSceneScript.playing)
 		{
             // transform.position refers to the position of the atom this script is attached to

@@ -66,7 +66,11 @@ public class FileSelectButtonCreator : MonoBehaviour
     // This function is mentioned in sections 3.2.3.5.1.6a and 3.2.3.5.1.7c of the SDD
     void setFilePathAndDisplayMessage(string file, string reactionName)
 	{
+        // Make it so that when the user clicks on a button, the filePath static variable of MainSceneScript gets changed
+        // to the proper file. Because of this, when the user goes to MainScene, a function will read that file.
         MainSceneScript.filePath = file;
+        
+        // Let the user know which file was selected
         displayText.text = reactionName + " Selected";
     }
 }

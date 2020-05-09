@@ -18,21 +18,6 @@ public class DownloadSceneButtonActions : MonoBehaviour
 	public Text inputFieldText;
     public Text displayText;
 
-	// The following code, along with the commented out code in the downloadFile function provides a way for the program to 
-	// check if the user tries to request a file from the server that they already have a copy of. 
-	/*HashSet<string> filesInCurrentDirectory;
-	public void Start()
-	{
-		filesInCurrentDirectory = new HashSet<string>();
-		foreach (string filePath in System.IO.Directory.GetFiles("Assets/Files/"))
-		{
-			if (filePath.Substring(filePath.Length - 4) == ".txt")
-				filesInCurrentDirectory.Add(filePath.Substring(13, filePath.Length - 13));
-		}
-		//foreach (string file in filesInCurrentDirectory)
-			//Debug.Log(file);
-	}*/
-
 	// This function mentioned in sections 3.2.3.5.1.5a and 3.2.3.5.1.5c of the SDD
 	public void goToMainMenu()
 	{
@@ -51,7 +36,7 @@ public class DownloadSceneButtonActions : MonoBehaviour
     // FR.11.1 : The program must be able to download data files from a web server.
     IEnumerator downloadFile(string fileName)
 	{
-		// Dr. Iqbal's file path for his web server
+		// File path for Dr. Iqbal's web server
 		string filePathBeginning = "http://people.missouristate.edu/riqbal/data/";
 		string url = filePathBeginning + fileName;
 

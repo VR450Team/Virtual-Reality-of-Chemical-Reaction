@@ -61,7 +61,7 @@ public class MainSceneScript : MonoBehaviour
 	Vector3 getReactionCenterPoint(Vector3[][] coords3dArray)
 	{
 		// Returns the average point of all coordinates in a reaction.
-		// Mentioned in 
+		// Mentioned in section 3.2.3.5.1.8c of the SDD.
 		int numberOfAtoms = coords3dArray.Length;
 		int numberOfFrames = coords3dArray[0].Length;
 		int numberOfEachCoord = numberOfAtoms * numberOfFrames;
@@ -88,6 +88,7 @@ public class MainSceneScript : MonoBehaviour
 		return new Vector3(averageXCoord, averageYCoord, averageZCoord);
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
     // FR.4 : The simulation will contain atoms represented as spheres.
     // FR.8 : During a simulation, the color of the atoms will be based on a color palette that is generally accepted by chemists.
     // FR.9 : During a simulation, the size of the atoms being displayed will be proportional to their mass.
@@ -118,6 +119,7 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
     // FR.6 : The simulation will contain covalent bonds represented by cylinders.
     //This function places the needed prefabs in the MainScene and the prefab for a covalent bonds is a cylinder.
     void instantiateBonds(List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> bondsDictList)
@@ -134,8 +136,9 @@ public class MainSceneScript : MonoBehaviour
 		}
 	}
 
-    // FR.11 : The program must be able to read in data from a file.
-    Tuple<int, string[], Vector3[][]> getDataFromXYZFile(string filePath)
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD.
+	// FR.11 : The program must be able to read in data from a file.
+	Tuple<int, string[], Vector3[][]> getDataFromXYZFile(string filePath)
 	{
 		// Get an array containing all lines of a reaction data file
 		string[] fileLines = File.ReadAllLines(filePath);
@@ -229,6 +232,7 @@ public class MainSceneScript : MonoBehaviour
 		return new Tuple<int, string[], Vector3[][]>(numberOfFrames, atomTypes, coords3dArray);
 	}
 
+	// This function mentioned in section 3.2.3.5.1.8c of the SDD
     // FR.7.1 : The covalent bonds will be displayed based on Van der Waals Radius.
     List<Dictionary<int, Tuple<Vector3, Vector3, Quaternion>>> getBonds(string[] atomTypes, Vector3[][] coords3dArray)
 	{
